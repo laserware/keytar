@@ -1,0 +1,52 @@
+{
+  "name": "@laserware/keytar",
+  "version": "1.0.0",
+  "description": "Handle keyboard events in the browser.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/laserware/keytar.git",
+    "type": "git"
+  },
+  "author": "Mike Rourke <mike.w.rourke@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "keyboard"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc --project tsconfig.build.json && pnpm format:build",
+    "prepublishOnly": "npm run build",
+    "preversion": "pnpm lint && pnpm typecheck",
+    "version": "pnpm format && git add -A src",
+    "postversion": "git push && git push --tags",
+    "format": "prettier --cache --write \"src/**/**.ts\"",
+    "format:build": "prettier --cache --write \"dist/**/**.{js,ts}\"",
+    "lint": "eslint --cache src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@laserware/arcade": "^1.0.0"
+  },
+  "devDependencies": {
+    "@laserware/eslint-config": "^1.0.0",
+    "@rushstack/eslint-patch": "^1.3.2",
+    "@vitest/coverage-istanbul": "^0.32.4",
+    "eslint": "^8.44.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.6",
+    "vitest": "^0.32.4"
+  },
+  "prettier": {
+    "trailingComma": "all"
+  }
+}
