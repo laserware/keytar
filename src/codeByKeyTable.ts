@@ -80,3 +80,15 @@ export const codeByKeyTable: Record<Key, string> = {
   [Key.BracketRight]: "BracketRight",
   [Key.Quote]: "Quote",
 };
+
+export const keyByCodeTable = invertCodeByKeyTable();
+
+function invertCodeByKeyTable(): Record<string, Key> {
+  const keyByCodeTable: Record<string, Key> = {};
+
+  for (const [key, code] of Object.entries(codeByKeyTable)) {
+    keyByCodeTable[code] = Number(key) as Key;
+  }
+
+  return keyByCodeTable;
+}

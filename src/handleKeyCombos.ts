@@ -1,6 +1,5 @@
 import { areKeysDown } from "./areKeysDown.js";
-
-type KeyComboHandler = () => boolean | void;
+import type { ComboHandler } from "./types.js";
 
 /**
  * Fires the handler that maps to the specified key combination for the
@@ -18,10 +17,10 @@ type KeyComboHandler = () => boolean | void;
  */
 export function handleKeyCombos(
   event: KeyboardEvent,
-  handlers: Record<number, KeyComboHandler>,
+  handlers: Record<number, ComboHandler>,
 ): boolean | void {
   for (const [combo, func] of Object.entries(handlers)) {
-    if (areKeysDown(event, +combo)) {
+    if (areKeysDown(event, Number(combo))) {
       return func();
     }
   }

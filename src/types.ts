@@ -1,4 +1,15 @@
 /**
+ * These are taken directly from the actual value from the event. We're using
+ * the bit-shifted representation to stay consistent with {@link Modifier}.
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+ */
+export enum MouseButton {
+  Left = 1 << 0,
+  Right = 1 << 1,
+  Middle = 1 << 2,
+}
+
+/**
  * Represents modifier keys.
  */
 export enum Modifier {
@@ -8,6 +19,8 @@ export enum Modifier {
   Shift = 1 << 15,
   CmdOrCtrl = Cmd | Ctrl,
 }
+
+export type ComboHandler = () => boolean | void;
 
 /**
  * Numbers that correspond to the key codes of the keyboard. Note that
