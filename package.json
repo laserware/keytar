@@ -1,6 +1,6 @@
 {
   "name": "@laserware/keytar",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Handle keyboard and mouse events in the browser.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
