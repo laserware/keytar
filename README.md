@@ -1,3 +1,3 @@
 # @laserware/keytar
 
-Handle keyboard events in the browser.
+Handle keyboard and mouse events in the browser.
