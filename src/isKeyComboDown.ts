@@ -6,31 +6,12 @@ import { Key, Modifier } from "./types.js";
 const platform = cachePlatform();
 
 /**
- * Returns true if the specified keyboard combo is pressed based on the specified
- * keyboard event.
- * @param event Keyboard event from an event listener
- * @param combos Single or array of combination of keys to check against the event
+ * Returns true if the specified single combination is pressed based on the
+ * specified keyboard or mouse event.
+ * @param event Keyboard or mouse event from an event listener
+ * @param combo Combination of keys to check for from the event
  */
-export function areKeysDown(
-  event: KeyboardEvent | MouseEvent,
-  ...combos: number[]
-): boolean {
-  for (const combo of combos) {
-    if (isComboDown(event, combo)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/**
- * Returns true if the specified single combo is pressed based on the keyboard
- * event.
- * @param event Keyboard event from an event listener
- * @param combo Combination of keys to check against the event
- */
-function isComboDown(
+export function isKeyComboDown(
   event: KeyboardEvent | MouseEvent,
   combo: number,
 ): boolean {

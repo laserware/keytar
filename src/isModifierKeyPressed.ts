@@ -2,8 +2,8 @@ import { Modifier } from "./types.js";
 
 /**
  * Returns true if the specified modifier key is pressed.
- * @param event
- * @param modifier
+ * @param event Keyboard or mouse event from an event listener
+ * @param modifier Modifier for which to check
  */
 export function isModifierKeyPressed(
   event: KeyboardEvent | MouseEvent,

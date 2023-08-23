@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 
 import { mockKeyboardEvent } from "../__mocks__/mockKeyboardEvent.js";
-import { areKeysDown } from "../areKeysDown.js";
+import { areKeyCombosDown } from "../areKeyCombosDown.js";
 import { Key, Modifier } from "../types.js";
 
-describe("the areKeysDown function", () => {
+describe("the areKeyCombosDown function", () => {
   describe("returns true if requirements are met", () => {
     const testCases = [
       {
@@ -56,7 +56,7 @@ describe("the areKeysDown function", () => {
 
     for (const { name, event, combo } of testCases) {
       test.concurrent(name, async () => {
-        const result = areKeysDown(event, combo);
+        const result = areKeyCombosDown(event, combo);
 
         expect(result).toBe(true);
       });
@@ -109,7 +109,7 @@ describe("the areKeysDown function", () => {
 
     for (const { name, event, combo } of testCases) {
       test.concurrent(name, async () => {
-        const result = areKeysDown(event, combo);
+        const result = areKeyCombosDown(event, combo);
 
         expect(result).toBe(false);
       });
@@ -201,7 +201,7 @@ describe("the areKeysDown function", () => {
 
     for (const { name, event, combo, expected } of testCases) {
       test.concurrent(name, async () => {
-        const result = areKeysDown(event, combo);
+        const result = areKeyCombosDown(event, combo);
 
         expect(result).toBe(expected);
       });
@@ -215,7 +215,7 @@ describe("the areKeysDown function", () => {
       shiftKey: true,
     });
 
-    const result = areKeysDown(
+    const result = areKeyCombosDown(
       event,
       Modifier.Ctrl | Modifier.Alt | Modifier.Shift,
     );

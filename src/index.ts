@@ -1,7 +1,7 @@
-export { areKeysDown } from "./areKeysDown.js";
+export { areKeyCombosDown } from "./areKeyCombosDown.js";
 export { eventToModifierCombo } from "./eventToModifierCombo.js";
 export { handleKeyCombos } from "./handleKeyCombos.js";
-export { handleModifierCombo } from "./handleModifierCombo.js";
+export { isKeyComboDown } from "./isKeyComboDown.js";
 export { isModifierKeyPressed } from "./isModifierKeyPressed.js";
 export { isPrintableCharacterKeyPressed } from "./isPrintableCharacterKeyPressed.js";
 export {

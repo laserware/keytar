@@ -1,10 +1,10 @@
-import { areKeysDown } from "./areKeysDown.js";
+import { areKeyCombosDown } from "./areKeyCombosDown.js";
 import type { ComboHandler } from "./types.js";
 
 /**
  * Fires the handler that maps to the specified key combination for the
- * specified keyboard event.
- * @param event Keyboard event to fire handler for
+ * specified keyboard or mouse event.
+ * @param event Keyboard or mouse event from an event listener
  * @param handlers Handlers that map to key combinations
  * @example
  * function handleKeyDown(event: KeyboardEvent): void {
@@ -16,12 +16,14 @@ import type { ComboHandler } from "./types.js";
  * }
  */
 export function handleKeyCombos(
-  event: KeyboardEvent,
+  event: KeyboardEvent | MouseEvent,
   handlers: Record<number, ComboHandler>,
-): boolean | void {
+): boolean {
   for (const [combo, func] of Object.entries(handlers)) {
-    if (areKeysDown(event, Number(combo))) {
-      return func();
+    if (areKeyCombosDown(event, Number(combo))) {
+      return func() ?? false;
     }
   }
+
+  return false;
 }
