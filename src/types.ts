@@ -4,20 +4,23 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
  */
 export enum MouseButton {
-  Left = 1 << 0,
-  Right = 1 << 1,
-  Middle = 1 << 2,
+  /* 0  */ None = 0,
+  /* 1  */ Left = 1 << 0,
+  /* 2  */ Right = 1 << 1,
+  /* 4  */ Auxiliary = 1 << 2,
+  /* 8  */ BrowserBack = 1 << 3,
+  /* 16 */ BrowserForward = 1 << 4,
 }
 
 /**
  * Represents modifier keys.
  */
 export enum Modifier {
-  Ctrl = 1 << 12,
-  Cmd = 1 << 13,
-  Alt = 1 << 14,
-  Shift = 1 << 15,
-  CmdOrCtrl = Cmd | Ctrl,
+  /* 4096  */ Ctrl = 1 << 12,
+  /* 8192  */ Cmd = 1 << 13,
+  /* 12288 */ CmdOrCtrl = Cmd | Ctrl,
+  /* 16384 */ Alt = 1 << 14,
+  /* 32768 */ Shift = 1 << 15,
 }
 
 export type ComboHandler = () => boolean | void;

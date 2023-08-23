@@ -2,9 +2,9 @@ import { keyByCodeTable } from "./codeByKeyTable.js";
 import { Modifier } from "./types.js";
 
 /**
- * Returns the modifier combo extrapolated from the specified keyboard or mouse
- * event.
- * @param event Event to get modifier combo from.
+ * Returns the modifier combination extrapolated from the specified keyboard or
+ * mouse event.
+ * @param event Keyboard or mouse event from an event listener
  */
 export function eventToModifierCombo(
   event: KeyboardEvent | MouseEvent,
