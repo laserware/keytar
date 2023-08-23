@@ -2,18 +2,31 @@ import { cachePlatform, Platform } from "@laserware/arcade";
 
 import { codeByKeyTable } from "./codeByKeyTable.js";
 import type { Key } from "./types.js";
+import { Modifier } from "./types.js";
 
 const platform = cachePlatform();
 
 /**
- * Display value for the Alt key (platform dependent).
+ * Returns the platform-dependent display value for the specified modifier.
  */
-export const altDisplay = platform === Platform.Mac ? "⌥" : "Alt";
+export function getDisplayValueForModifier(modifier: Modifier): string {
+  switch (modifier) {
+    case Modifier.Cmd:
+      return platform === Platform.Mac ? "⌘" : "Meta";
 
-/**
- * Display value for the Command or Ctrl key (platform dependent).
- */
-export const cmdOrCtrlDisplay = platform === Platform.Mac ? "⌘" : "Ctrl";
+    case Modifier.Ctrl:
+      return platform === Platform.Mac ? "⌃" : "Ctrl";
+
+    case Modifier.CmdOrCtrl:
+      return platform === Platform.Mac ? "⌘" : "Ctrl";
+
+    case Modifier.Alt:
+      return platform === Platform.Mac ? "⌥" : "Alt";
+
+    case Modifier.Shift:
+      return "Shift";
+  }
+}
 
 /**
  * Returns the value to display for the specified key or code.
