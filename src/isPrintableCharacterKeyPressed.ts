@@ -1,19 +1,21 @@
 /**
  * Returns true if a printable character key was pressed (excluding any
  * modifiers).
+ * @param event Keyboard event from an event listener
  */
 export function isPrintableCharacterKeyPressed(event: KeyboardEvent): boolean {
-  // prettier-ignore
-  if ([event.altKey, event.ctrlKey, event.metaKey, event.shiftKey].some(Boolean)) {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
     return false;
   }
 
-  const { code } = event;
+  if (event.code.startsWith("Key") || event.code.startsWith("Digit")) {
+    return true;
+  }
 
-  return [
-    code.startsWith("Key"),
-    code.startsWith("Digit"),
-    code === "Backspace",
-    code === "Delete",
-  ].some(Boolean);
+  // noinspection RedundantIfStatementJS
+  if (event.code === "Backspace" || event.code === "Delete") {
+    return true;
+  }
+
+  return false;
 }
