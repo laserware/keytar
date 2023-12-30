@@ -1,6 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
 
-import { mockKeyboardEvent } from "../__mocks__/mockKeyboardEvent.js";
 import { handleKeyCombos } from "../handleKeyCombos.js";
 import { Key, Modifier } from "../types.js";
 
@@ -9,7 +8,7 @@ describe("the handleKeyCombos function", () => {
     const handlerFired = vi.fn();
     const handlerNotFired = vi.fn();
 
-    const event = mockKeyboardEvent({ code: "KeyC", altKey: true });
+    const event = new KeyboardEvent("keydown", { code: "KeyC", altKey: true });
 
     handleKeyCombos(event, {
       [Modifier.Alt | Key.LetterC]() {

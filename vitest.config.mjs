@@ -7,6 +7,7 @@ export default defineConfig({
     cache: {
       dir: path.resolve(process.cwd(), "node_modules", ".vitest"),
     },
+    environment: "happy-dom",
     coverage: {
       provider: "istanbul",
       reporter: ["lcov"],
