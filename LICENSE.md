@@ -1,6 +1,6 @@
 # The MIT License (MIT)
 
-Copyright ©2023 Mike Rourke
+Copyright ©2024 Mike Rourke
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
