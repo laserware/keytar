@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
-    "url": "https://github.com/laserware/keytar.git",
+    "url": "git+https://github.com/laserware/keytar.git",
     "type": "git"
   },
   "author": "Mike Rourke <mike.w.rourke@gmail.com>",
@@ -21,31 +21,31 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsc --project tsconfig.build.json && pnpm format:build",
+    "build": "rm -rf dist && tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build",
     "preversion": "pnpm lint && pnpm typecheck",
     "version": "pnpm format && git add -A src",
     "postversion": "git push && git push --tags",
-    "format": "prettier --cache --write \"src/**/**.ts\"",
-    "format:build": "prettier --cache --write \"dist/**/**.{js,ts}\"",
+    "check:format": "prettier --check src",
+    "check:types": "tsc --noEmit",
+    "format": "prettier --cache --write src",
     "lint": "eslint --cache src",
-    "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@laserware/arcade": "^2.2.1"
+    "@laserware/arcade": "^2.2.2"
   },
   "devDependencies": {
-    "@laserware/eslint-config": "^1.2.0",
-    "@rushstack/eslint-patch": "^1.6.1",
-    "@vitest/coverage-istanbul": "^1.1.0",
+    "@laserware/eslint-config": "^1.2.1",
+    "@rushstack/eslint-patch": "^1.7.2",
+    "@vitest/coverage-istanbul": "^1.2.2",
     "eslint": "^8.56.0",
-    "happy-dom": "^12.10.3",
-    "prettier": "^3.1.1",
+    "happy-dom": "^13.3.1",
+    "prettier": "^3.2.4",
     "typescript": "^5.3.3",
-    "vitest": "^1.1.0"
+    "vitest": "^1.2.2"
   },
   "prettier": {
     "trailingComma": "all",
