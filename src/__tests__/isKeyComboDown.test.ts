@@ -1,4 +1,4 @@
-import { isKeyComboDown } from "../isKeyComboDown.js";
+import { isChordPressed } from "../isChordPressed.js";
 import { Key, Modifier } from "../types.js";
 
 describe.skip("the isKeyComboDown function", () => {
@@ -34,7 +34,7 @@ describe.skip("the isKeyComboDown function", () => {
 
     for (const { name, event, combo } of testCases) {
       test.concurrent(name, async () => {
-        const result = isKeyComboDown(event, combo);
+        const result = isChordPressed(event, combo);
 
         expect(result).toBe(true);
       });
@@ -73,7 +73,7 @@ describe.skip("the isKeyComboDown function", () => {
 
     for (const { name, event, combo } of testCases) {
       test.concurrent(name, async () => {
-        const result = isKeyComboDown(event, combo);
+        const result = isChordPressed(event, combo);
 
         expect(result).toBe(false);
       });
@@ -165,7 +165,7 @@ describe.skip("the isKeyComboDown function", () => {
 
     for (const { name, event, combo, expected } of testCases) {
       test.concurrent(name, async () => {
-        const result = isKeyComboDown(event, combo);
+        const result = isChordPressed(event, combo);
 
         expect(result).toBe(expected);
       });
@@ -175,7 +175,7 @@ describe.skip("the isKeyComboDown function", () => {
   test("returns true if only modifiers are specified with no code", () => {
     const event = new KeyboardEvent("keydown", { altKey: true, ctrlKey: true, shiftKey: true });
 
-    const result = isKeyComboDown(event, Modifier.Ctrl | Modifier.Alt | Modifier.Shift);
+    const result = isChordPressed(event, Modifier.Ctrl | Modifier.Alt | Modifier.Shift);
 
     expect(result).toBe(true);
   });

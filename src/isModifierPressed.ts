@@ -5,7 +5,7 @@ import { Modifier } from "./types.js";
  * @param event Keyboard or mouse event from an event listener
  * @param modifier Modifier for which to check
  */
-export function isModifierKeyPressed(
+export function isModifierPressed(
   event: KeyboardEvent | MouseEvent,
   modifier: Modifier,
 ): boolean {

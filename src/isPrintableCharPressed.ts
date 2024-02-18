@@ -3,7 +3,7 @@
  * modifiers).
  * @param event Keyboard event from an event listener
  */
-export function isPrintableCharacterKeyPressed(event: KeyboardEvent): boolean {
+export function isPrintableCharPressed(event: KeyboardEvent): boolean {
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
     return false;
   }

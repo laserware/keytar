@@ -1,4 +1,28 @@
-import { Key } from "./types.js";
+import { Key, MouseButton, EventButton } from "./types.js";
+
+/**
+ * Table of `MouseButton` to `event.buttons` mapping.
+ */
+export const eventButtonByButtonEnumTable: Record<MouseButton, EventButton> = {
+  [MouseButton.None]: EventButton.None,
+  [MouseButton.Left]: EventButton.Left,
+  [MouseButton.Right]: EventButton.Right,
+  [MouseButton.Auxiliary]: EventButton.Auxiliary,
+  [MouseButton.BrowserBack]: EventButton.BrowserBack,
+  [MouseButton.BrowserForward]: EventButton.BrowserForward,
+};
+
+/**
+ * Table of `event.buttons` to `MouseButton` mapping.
+ */
+export const buttonEnumByEventButtonTable: Record<EventButton, MouseButton> = {
+  [EventButton.None]: MouseButton.None,
+  [EventButton.Left]: MouseButton.Left,
+  [EventButton.Right]: MouseButton.Right,
+  [EventButton.Auxiliary]: MouseButton.Auxiliary,
+  [EventButton.BrowserBack]: MouseButton.BrowserBack,
+  [EventButton.BrowserForward]: MouseButton.BrowserForward,
+};
 
 /**
  * Table of `Key` enum value to `event.key` mapping.

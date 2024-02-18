@@ -1,4 +1,4 @@
-import { handleKeyCombos } from "../handleKeyCombos.js";
+import { handleChords } from "../handleChords.js";
 import { Key, Modifier } from "../types.js";
 
 describe("the handleKeyCombos function", () => {
@@ -8,7 +8,7 @@ describe("the handleKeyCombos function", () => {
 
     const event = new KeyboardEvent("keydown", { key: "c", altKey: true });
 
-    handleKeyCombos(event, {
+    handleChords(event, {
       [Modifier.Alt | Key.LetterC]() {
         handlerFired();
       },

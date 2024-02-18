@@ -1,9 +1,28 @@
+export type Chord = Key | Modifier | MouseButton | number;
+
+export type ChordSet = Set<Chord>;
+
+/**
+ * Represents mouse buttons that could be pressed. These do not match the mouse
+ * buttons from the MouseEvent (they're much higher). This is so we can check
+ * for a combination of keyboard modifiers and mouse buttons
+ * (e.g. Shift + Left Click).
+ */
+export enum MouseButton {
+  /* 65536   */ None = 0,
+  /* 131072  */ Left = 1 << 16,
+  /* 262144  */ Right = 1 << 17,
+  /* 524288  */ Auxiliary = 1 << 18,
+  /* 1048577 */ BrowserBack = 1 << 19,
+  /* 2097152 */ BrowserForward = 1 << 20,
+}
+
 /**
  * These are taken directly from the actual value from the event. We're using
  * the bit-shifted representation to stay consistent with {@link Modifier}.
  * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
  */
-export enum MouseButton {
+export enum EventButton {
   /* 0  */ None = 0,
   /* 1  */ Left = 1 << 0,
   /* 2  */ Right = 1 << 1,
@@ -23,7 +42,7 @@ export enum Modifier {
   /* 32768 */ Shift = 1 << 15,
 }
 
-export type ComboHandler = () => boolean | void;
+export type ChordMatchHandler = () => boolean | void;
 
 /**
  * Numbers that correspond to the key codes of the keyboard. Note that

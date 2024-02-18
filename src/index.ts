@@ -1,12 +1,5 @@
-export { eventToModifierCombo } from "./eventToModifierCombo.js";
-export { handleKeyCombos } from "./handleKeyCombos.js";
-export { handleMouseCombos } from "./handleMouseCombos.js";
-export { isKeyComboDown } from "./isKeyComboDown.js";
-export { isModifierKeyPressed } from "./isModifierKeyPressed.js";
-export { isMouseComboDown } from "./isMouseComboDown.js";
-export { isPrintableCharacterKeyPressed } from "./isPrintableCharacterKeyPressed.js";
-export {
-  getDisplayValueForModifier,
-  getDisplayValueForKey,
-} from "./keyDisplayValues.js";
-export { Key, Modifier, MouseButton } from "./types.js";
+export { handleChords } from "./handleChords.js";
+export { isChordPressed } from "./isChordPressed.js";
+export { isPrintableCharPressed } from "./isPrintableCharPressed.js";
+export { getChordDisplay } from "./getChordDisplay.js";
+export { Key, Modifier, MouseButton, type Chord } from "./types.js";
