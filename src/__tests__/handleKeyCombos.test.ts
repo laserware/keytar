@@ -1,5 +1,3 @@
-import { describe, expect, test, vi } from "vitest";
-
 import { handleKeyCombos } from "../handleKeyCombos.js";
 import { Key, Modifier } from "../types.js";
 
@@ -8,7 +6,7 @@ describe("the handleKeyCombos function", () => {
     const handlerFired = vi.fn();
     const handlerNotFired = vi.fn();
 
-    const event = new KeyboardEvent("keydown", { code: "KeyC", altKey: true });
+    const event = new KeyboardEvent("keydown", { key: "c", altKey: true });
 
     handleKeyCombos(event, {
       [Modifier.Alt | Key.LetterC]() {

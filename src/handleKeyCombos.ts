@@ -1,4 +1,4 @@
-import { areKeyCombosDown } from "./areKeyCombosDown.js";
+import { isKeyComboDown } from "./isKeyComboDown.js";
 import type { ComboHandler } from "./types.js";
 
 /**
@@ -20,7 +20,7 @@ export function handleKeyCombos(
   handlers: Record<number, ComboHandler>,
 ): boolean {
   for (const [combo, func] of Object.entries(handlers)) {
-    if (areKeyCombosDown(event, Number(combo))) {
+    if (isKeyComboDown(event, Number(combo))) {
       return func() ?? false;
     }
   }

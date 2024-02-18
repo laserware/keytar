@@ -1,4 +1,4 @@
-import { areMouseCombosDown } from "./areMouseCombosDown.js";
+import { isMouseComboDown } from "./isMouseComboDown.js";
 import type { ComboHandler } from "./types.js";
 
 /**
@@ -21,7 +21,7 @@ export function handleMouseCombos(
   handlers: Record<number, ComboHandler>,
 ): boolean {
   for (const [combo, func] of Object.entries(handlers)) {
-    if (areMouseCombosDown(event, Number(combo))) {
+    if (isMouseComboDown(event, Number(combo))) {
       return func() ?? false;
     }
   }

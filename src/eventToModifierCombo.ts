@@ -1,4 +1,4 @@
-import { keyByCodeTable } from "./codeByKeyTable.js";
+import { keyEnumByEventKeyTable } from "./keyTables.js";
 import { Modifier } from "./types.js";
 
 /**
@@ -11,8 +11,8 @@ export function eventToModifierCombo(
 ): number {
   let combo = 0;
 
-  if ("code" in event) {
-    combo = combo | keyByCodeTable[event.code] ?? 0;
+  if ("key" in event) {
+    combo = combo | keyEnumByEventKeyTable[event.key] ?? 0;
   }
 
   if ("buttons" in event) {
