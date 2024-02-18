@@ -4,6 +4,7 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
+    globals: true,
     cache: {
       dir: path.resolve(process.cwd(), "node_modules", ".vitest"),
     },
@@ -19,10 +20,6 @@ export default defineConfig({
         "**/*.json",
         "**/*.js",
       ],
-      // Include _all_ files in coverage, even untested ones:
-      all: true,
-      // Clean coverage results before running tests:
-      clean: true,
     },
   },
 });
