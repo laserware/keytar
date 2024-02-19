@@ -1,8 +1,8 @@
 import { handleChords } from "../handleChords.js";
 import { Key, Modifier } from "../types.js";
 
-describe("the handleKeyCombos function", () => {
-  test("only fires the handler when the key combo is pressed", () => {
+describe("the handleChords function", () => {
+  it("only fires the handler when the key chord is pressed", () => {
     const handlerFired = vi.fn();
     const handlerNotFired = vi.fn();
 

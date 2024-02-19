@@ -24,21 +24,19 @@
     "build": "rm -rf dist && tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build",
     "preversion": "pnpm eslint && pnpm typecheck",
-    "version": "pnpm format && git add -A src",
+    "version": "pnpm prettier && git add -A src",
     "postversion": "git push && git push --tags",
     "prettier:check": "prettier --check src",
     "typecheck": "tsc --noEmit",
     "prettier": "prettier --cache --write src",
     "eslint": "eslint --cache src",
-    "vitest": "vitest",
-    "vitest:run": "vitest run",
-    "vitest:coverage": "vitest run --coverage"
+    "vitest": "vitest"
   },
   "dependencies": {
-    "@laserware/arcade": "^2.2.2"
+    "@laserware/arcade": "^2.3.0"
   },
   "devDependencies": {
-    "@laserware/eslint-config": "^1.2.1",
+    "@laserware/eslint-config": "^2.0.0",
     "@rushstack/eslint-patch": "^1.7.2",
     "@vitest/coverage-istanbul": "^1.3.0",
     "eslint": "^8.56.0",

@@ -52,7 +52,7 @@ function chordFoundInEvent(
 ): boolean {
   let lookupKey = chord;
 
-  if (event instanceof MouseEvent) {
+  if ("buttons" in event) {
     lookupKey = stripMouseButtons(event, lookupKey);
 
     if (lookupKey === 0) {
@@ -111,6 +111,8 @@ function chordFoundInEvent(
   if (lookupKey === 0) {
     return true;
   }
+
+  console.log(chord, eventKeyByKeyEnumTable[lookupKey as Key], event.key);
 
   // @ts-expect-error: If this was a MouseEvent, the `keyCode === 0` check would have caught it.
   return event.key.toUpperCase() === eventKeyByKeyEnumTable[lookupKey as Key];
