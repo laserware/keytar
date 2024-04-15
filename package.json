@@ -2,8 +2,14 @@
   "name": "@laserware/keytar",
   "version": "2.0.1",
   "description": "Handle keyboard and mouse events in the browser.",
-  "main": "dist/index.js",
+  "browser": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
   "repository": {
     "url": "git+https://github.com/laserware/keytar.git",
     "type": "git"
@@ -21,31 +27,31 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsc --project tsconfig.build.json",
+    "build": "tsup && cd dist && npx prettier --write .",
     "prepublishOnly": "npm run build",
-    "preversion": "pnpm lint && pnpm check:types",
-    "version": "pnpm format && git add -A src",
+    "preversion": "npm lint && npm check:types",
+    "version": "npm format && git add -A src",
     "postversion": "git push && git push --tags",
-    "check:format": "prettier --check src",
-    "check:types": "tsc --noEmit",
-    "format": "prettier --cache --write src",
-    "lint": "eslint --cache src",
-    "test": "vitest",
-    "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "eslint": "eslint --cache src",
+    "prettier": "prettier --cache --write src",
+    "prettier:ci": "prettier --check src",
+    "typecheck": "tsc --noEmit",
+    "vitest": "vitest"
   },
   "dependencies": {
-    "@laserware/arcade": "^2.2.2"
+    "@laserware/arcade": "^3.0.1"
   },
   "devDependencies": {
-    "@laserware/eslint-config": "^1.2.1",
-    "@rushstack/eslint-patch": "^1.7.2",
-    "@vitest/coverage-istanbul": "^1.2.2",
-    "eslint": "^8.56.0",
-    "happy-dom": "^13.3.1",
-    "prettier": "^3.2.4",
-    "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
+    "@laserware/eslint-config": "^2.2.2",
+    "@rushstack/eslint-patch": "^1.10.2",
+    "@vitest/coverage-istanbul": "^1.5.0",
+    "eslint": "^8.57.0",
+    "happy-dom": "^14.7.1",
+    "prettier": "^3.2.5",
+    "tslib": "^2.6.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
   },
   "prettier": {
     "trailingComma": "all",

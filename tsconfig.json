@@ -1,15 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "declarationMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
     "lib": ["DOM", "ESNext"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "outDir": "./dist",
     "removeComments": false,
     "resolveJsonModule": true,
@@ -19,6 +19,7 @@
     "target": "ESNext",
     "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["./src/**/*.ts", "./declarations.d.ts"],
+  "exclude": ["dist", "node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

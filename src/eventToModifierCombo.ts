@@ -12,7 +12,7 @@ export function eventToModifierCombo(
   let combo = 0;
 
   if ("code" in event) {
-    combo = combo | keyByCodeTable[event.code] ?? 0;
+    combo = combo | (keyByCodeTable[event.code] ?? 0);
   }
 
   if ("buttons" in event) {

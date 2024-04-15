@@ -1,10 +1,8 @@
-import { describe, expect, test, vi } from "vitest";
-
 import { handleKeyCombos } from "../handleKeyCombos.js";
 import { Key, Modifier } from "../types.js";
 
 describe("the handleKeyCombos function", () => {
-  test("only fires the handler when the key combo is pressed", () => {
+  it("only fires the handler when the key combo is pressed", () => {
     const handlerFired = vi.fn();
     const handlerNotFired = vi.fn();
 
