@@ -29,8 +29,8 @@
   "scripts": {
     "build": "tsup && cd dist && npx prettier --write .",
     "prepublishOnly": "npm run build",
-    "preversion": "npm lint && npm check:types",
-    "version": "npm format && git add -A src",
+    "preversion": "npm run eslint && npm run typecheck",
+    "version": "npm run prettier && git add -A src",
     "postversion": "git push && git push --tags",
     "eslint": "eslint --cache src",
     "prettier": "prettier --cache --write src",
