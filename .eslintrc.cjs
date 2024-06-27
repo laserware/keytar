@@ -1,4 +1,4 @@
-require("@rushstack/eslint-patch/modern-module-resolution");
+"use strict";
 
 module.exports = {
   extends: ["@laserware/eslint-config"],
