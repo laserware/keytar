@@ -1,4 +1,4 @@
-import { Modifier } from "./types.js";
+import { Modifier } from "./types.ts";
 
 /**
  * Returns true if the specified modifier key is pressed.
