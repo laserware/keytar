@@ -7,7 +7,7 @@ import {
   Modifier,
   type Chord,
   type ChordedEvent,
-} from "./types.js";
+} from "./types.ts";
 
 const platform = cachePlatform();
 
