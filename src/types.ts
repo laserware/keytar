@@ -1,7 +1,9 @@
 /**
  * These are taken directly from the actual value from the event. We're using
  * the bit-shifted representation to stay consistent with {@link Modifier}.
- * @see https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
+ *
+ * See the {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons|buttons} documentation
+ * on MDN for additional details.
  */
 export enum MouseButton {
   /* 0  */ None = 0,

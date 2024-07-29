@@ -1,18 +1,19 @@
-import { keyByCodeTable } from "./codeByKeyTable.ts";
+import { keyEnumByEventKeyTable } from "./keyTables.ts";
 import { Modifier } from "./types.ts";
 
 /**
  * Returns the modifier combination extrapolated from the specified keyboard or
  * mouse event.
- * @param event Keyboard or mouse event from an event listener
+ *
+ * @param event Keyboard or mouse event from an event listener.
  */
 export function eventToModifierCombo(
   event: KeyboardEvent | MouseEvent,
 ): number {
   let combo = 0;
 
-  if ("code" in event) {
-    combo = combo | (keyByCodeTable[event.code] ?? 0);
+  if ("key" in event) {
+    combo = combo | keyEnumByEventKeyTable[event.key] ?? 0;
   }
 
   if ("buttons" in event) {

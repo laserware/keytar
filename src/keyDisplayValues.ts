@@ -1,8 +1,7 @@
 import { cachePlatform, Platform } from "@laserware/arcade";
 
-import { codeByKeyTable } from "./codeByKeyTable.ts";
-import type { Key } from "./types.ts";
-import { Modifier } from "./types.ts";
+import { eventKeyByKeyEnumTable } from "./keyTables.ts";
+import { Modifier, type Key } from "./types.ts";
 
 const platform = cachePlatform();
 
@@ -31,25 +30,19 @@ export function getDisplayValueForModifier(modifier: Modifier): string {
 /**
  * Returns the value to display for the specified key or code.
  */
-export function getDisplayValueForKey(keyOrCode: number | string): string {
-  const code =
-    typeof keyOrCode === "number"
-      ? codeByKeyTable[keyOrCode as Key]
-      : keyOrCode;
+export function getDisplayValueForKey(
+  keyEnumOrEventKey: number | string,
+): string {
+  const eventKey =
+    typeof keyEnumOrEventKey === "number"
+      ? eventKeyByKeyEnumTable[keyEnumOrEventKey as Key]
+      : keyEnumOrEventKey;
 
-  if (code === undefined) {
-    throw new Error(`Unknown key code: ${keyOrCode}`);
+  if (eventKey === undefined) {
+    throw new Error(`Unknown key: ${keyEnumOrEventKey}`);
   }
 
-  if (code.startsWith("Key")) {
-    return code.replace("Key", "");
-  }
-
-  if (code.startsWith("Digit")) {
-    return code.replace("Digit", "");
-  }
-
-  switch (code) {
+  switch (eventKey) {
     case "ArrowDown":
       return "▼";
 
@@ -87,6 +80,6 @@ export function getDisplayValueForKey(keyOrCode: number | string): string {
       return "/";
 
     default:
-      return code;
+      return eventKey;
   }
 }
