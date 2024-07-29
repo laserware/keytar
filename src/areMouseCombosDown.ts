@@ -1,4 +1,4 @@
-import { isMouseComboDown } from "./isMouseComboDown.js";
+import { isMouseComboDown } from "./isMouseComboDown.ts";
 
 /**
  * Returns true if one of the specified mouse button and modifier key

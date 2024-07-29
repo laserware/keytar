@@ -1,5 +1,5 @@
-import { isKeyComboDown } from "./isKeyComboDown.js";
-import { MouseButton } from "./types.js";
+import { isKeyComboDown } from "./isKeyComboDown.ts";
+import { MouseButton } from "./types.ts";
 
 /**
  * Returns true if the specified mouse button and modifier key combination is

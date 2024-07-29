@@ -1,14 +1,14 @@
-export { areKeyCombosDown } from "./areKeyCombosDown.js";
-export { areMouseCombosDown } from "./areMouseCombosDown.js";
-export { eventToModifierCombo } from "./eventToModifierCombo.js";
-export { handleKeyCombos } from "./handleKeyCombos.js";
-export { handleMouseCombos } from "./handleMouseCombos.js";
-export { isKeyComboDown } from "./isKeyComboDown.js";
-export { isModifierKeyPressed } from "./isModifierKeyPressed.js";
-export { isMouseComboDown } from "./isMouseComboDown.js";
-export { isPrintableCharacterKeyPressed } from "./isPrintableCharacterKeyPressed.js";
+export { areKeyCombosDown } from "./areKeyCombosDown.ts";
+export { areMouseCombosDown } from "./areMouseCombosDown.ts";
+export { eventToModifierCombo } from "./eventToModifierCombo.ts";
+export { handleKeyCombos } from "./handleKeyCombos.ts";
+export { handleMouseCombos } from "./handleMouseCombos.ts";
+export { isKeyComboDown } from "./isKeyComboDown.ts";
+export { isModifierKeyPressed } from "./isModifierKeyPressed.ts";
+export { isMouseComboDown } from "./isMouseComboDown.ts";
+export { isPrintableCharacterKeyPressed } from "./isPrintableCharacterKeyPressed.ts";
 export {
   getDisplayValueForModifier,
   getDisplayValueForKey,
-} from "./keyDisplayValues.js";
-export { Key, Modifier, MouseButton } from "./types.js";
+} from "./keyDisplayValues.ts";
+export { Key, Modifier, MouseButton } from "./types.ts";

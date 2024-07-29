@@ -1,5 +1,5 @@
-import { areMouseCombosDown } from "./areMouseCombosDown.js";
-import type { ComboHandler } from "./types.js";
+import { areMouseCombosDown } from "./areMouseCombosDown.ts";
+import type { ComboHandler } from "./types.ts";
 
 /**
  * Fires the handler that maps to the specified modifier and mouse button

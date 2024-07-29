@@ -1,4 +1,4 @@
-import { Key } from "./types.js";
+import { Key } from "./types.ts";
 
 /**
  * Table of `Key` enum value to `code` mapping.

@@ -1,5 +1,5 @@
-import { keyByCodeTable } from "./codeByKeyTable.js";
-import { Modifier } from "./types.js";
+import { keyByCodeTable } from "./codeByKeyTable.ts";
+import { Modifier } from "./types.ts";
 
 /**
  * Returns the modifier combination extrapolated from the specified keyboard or

@@ -1,5 +1,5 @@
-import { areKeyCombosDown } from "./areKeyCombosDown.js";
-import type { ComboHandler } from "./types.js";
+import { areKeyCombosDown } from "./areKeyCombosDown.ts";
+import type { ComboHandler } from "./types.ts";
 
 /**
  * Fires the handler that maps to the specified key combination for the

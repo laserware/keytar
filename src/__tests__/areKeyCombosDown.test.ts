@@ -1,5 +1,5 @@
-import { areKeyCombosDown } from "../areKeyCombosDown.js";
-import { Key, Modifier } from "../types.js";
+import { areKeyCombosDown } from "../areKeyCombosDown.ts";
+import { Key, Modifier } from "../types.ts";
 
 describe("the areKeyCombosDown function", () => {
   it.concurrent.each([

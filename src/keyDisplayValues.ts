@@ -1,8 +1,8 @@
 import { cachePlatform, Platform } from "@laserware/arcade";
 
-import { codeByKeyTable } from "./codeByKeyTable.js";
-import type { Key } from "./types.js";
-import { Modifier } from "./types.js";
+import { codeByKeyTable } from "./codeByKeyTable.ts";
+import type { Key } from "./types.ts";
+import { Modifier } from "./types.ts";
 
 const platform = cachePlatform();
 

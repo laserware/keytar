@@ -1,4 +1,4 @@
-import { isKeyComboDown } from "./isKeyComboDown.js";
+import { isKeyComboDown } from "./isKeyComboDown.ts";
 
 /**
  * Returns true if one of the specified keyboard combinations is pressed based

@@ -1,5 +1,5 @@
-import { handleKeyCombos } from "../handleKeyCombos.js";
-import { Key, Modifier } from "../types.js";
+import { handleKeyCombos } from "../handleKeyCombos.ts";
+import { Key, Modifier } from "../types.ts";
 
 describe("the handleKeyCombos function", () => {
   it("only fires the handler when the key combo is pressed", () => {
