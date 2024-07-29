@@ -1,15 +1,40 @@
 import { isPlatform } from "@laserware/arcade";
 
-import { codeByKeyTable } from "./codeByKeyTable.ts";
+import { eventKeyByKeyEnumTable } from "./keyTables.ts";
 import { Key, Modifier } from "./types.ts";
+
+/**
+ * Returns true if one of the specified keyboard combinations is pressed based
+ * on the specified keyboard or mouse event.
+ *
+ * @param event Keyboard or mouse event from an event listener.
+ * @param combos Combination of modifier keys and keys to check for from the event.
+ */
+export function isKeyComboDown(
+  event: KeyboardEvent | MouseEvent,
+  ...combos: number[]
+): boolean {
+  const combosLength = combos.length;
+
+  // Using an OG loop here because it's _slightly_ more performant than
+  // a `for...of` and `forEach` loop:
+  for (let index = 0; index < combosLength; index++) {
+    if (isSingleKeyComboDown(event, combos[index])) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 /**
  * Returns true if the specified single combination is pressed based on the
  * specified keyboard or mouse event.
- * @param event Keyboard or mouse event from an event listener
- * @param combo Combination of keys to check for from the event
+ *
+ * @param event Keyboard or mouse event from an event listener.
+ * @param combo Combination of keys to check for from the event.
  */
-export function isKeyComboDown(
+function isSingleKeyComboDown(
   event: KeyboardEvent | MouseEvent,
   combo: number,
 ): boolean {
@@ -70,5 +95,5 @@ export function isKeyComboDown(
   const tableKey = keyCode as Key;
 
   // @ts-expect-error: If this was a MouseEvent, the `keyCode === 0` check would have caught it.
-  return event.code === codeByKeyTable[tableKey];
+  return event.key.toUpperCase() === eventKeyByKeyEnumTable[tableKey];
 }
