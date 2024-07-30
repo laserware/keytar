@@ -1,6 +1,6 @@
 import { cachePlatform, Platform } from "@laserware/arcade";
 
-import { hasTokenInChord, stripToken } from "./common.ts";
+import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.ts";
 import { eventKeyByKeyEnumTable } from "./tables.ts";
 import {
   EventButton,
@@ -76,15 +76,15 @@ export function isChordPressed(
       return false;
     }
 
-    if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
-      lookup = lookup & ~Modifier.Ctrl;
-    } else if (event.ctrlKey) {
-      return false;
-    }
-
     if (hasTokenInChord(chord, Modifier.Cmd) && event.metaKey) {
       lookup = lookup & ~Modifier.Cmd;
     } else if (event.metaKey) {
+      return false;
+    }
+
+    if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
+      lookup = lookup & ~Modifier.Ctrl;
+    } else if (event.ctrlKey) {
       return false;
     }
 
@@ -99,7 +99,7 @@ export function isChordPressed(
     }
 
     if ("key" in event) {
-      const key = event.key.toUpperCase();
+      const key = getKeyForLookup(event.key);
 
       if (key === eventKeyByKeyEnumTable.get(lookup)) {
         return true;

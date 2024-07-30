@@ -77,88 +77,91 @@ describe("the isChordPressed function", () => {
     it.concurrent.each([
       // Command modifier:
       {
-        name: "returns false if Command key is specified but not in event",
-        event: new KeyboardEvent("keydown", { key: "L", ctrlKey: true }),
-        chord: Modifier.Cmd | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "A", ctrlKey: true }),
+        chord: Modifier.Cmd | Key.LetterA,
+        display: getChordDisplay(Modifier.Cmd | Key.LetterA),
         expected: false,
       },
       {
-        name: "returns false if Command key is not specified but in event",
-        event: new KeyboardEvent("keydown", { key: "L", metaKey: true }),
-        chord: Modifier.Alt | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "b", metaKey: true }),
+        chord: Modifier.Alt | Key.LetterB,
+        display: getChordDisplay(Modifier.Alt | Key.LetterB),
         expected: false,
       },
       {
-        name: "returns true if Command key is specified and in event",
-        event: new KeyboardEvent("keydown", { key: "L", metaKey: true }),
-        chord: Modifier.Cmd | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "C", metaKey: true }),
+        chord: Modifier.Cmd | Key.LetterC,
+        display: getChordDisplay(Modifier.Cmd | Key.LetterC),
         expected: true,
       },
 
       // Ctrl modifier:
       {
-        name: "returns false if Ctrl key is specified but not in event",
-        event: new KeyboardEvent("keydown", { key: "L", altKey: true }),
-        chord: Modifier.Ctrl | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "d", altKey: true }),
+        chord: Modifier.Ctrl | Key.LetterD,
+        display: getChordDisplay(Modifier.Ctrl | Key.LetterD),
         expected: false,
       },
       {
-        name: "returns false if Ctrl key is not specified but in event",
-        event: new KeyboardEvent("keydown", { key: "L", ctrlKey: true }),
-        chord: Modifier.Alt | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "E", ctrlKey: true }),
+        chord: Modifier.Alt | Key.LetterE,
+        display: getChordDisplay(Modifier.Alt | Key.LetterE),
         expected: false,
       },
       {
-        name: "returns true if Ctrl key is specified and in event",
-        event: new KeyboardEvent("keydown", { key: "L", ctrlKey: true }),
-        chord: Modifier.Ctrl | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "F", ctrlKey: true }),
+        chord: Modifier.Ctrl | Key.LetterF,
+        display: getChordDisplay(Modifier.Ctrl | Key.LetterF),
         expected: true,
       },
 
       // Alt modifier
       {
-        name: "returns false if Alt key is specified but not in event",
-        event: new KeyboardEvent("keydown", { key: "L", ctrlKey: true }),
-        chord: Modifier.Alt | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "g", ctrlKey: true }),
+        chord: Modifier.Alt | Key.LetterG,
+        display: getChordDisplay(Modifier.Alt | Key.LetterG),
         expected: false,
       },
       {
-        name: "returns false if Alt key is not specified but in event",
-        event: new KeyboardEvent("keydown", { key: "L", altKey: true }),
-        chord: Modifier.Ctrl | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "H", altKey: true }),
+        chord: Modifier.Ctrl | Key.LetterH,
+        display: getChordDisplay(Modifier.Ctrl | Key.LetterH),
         expected: false,
       },
       {
-        name: "returns true if Alt key is specified and in event",
-        event: new KeyboardEvent("keydown", { key: "L", altKey: true }),
-        chord: Modifier.Alt | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "I", altKey: true }),
+        chord: Modifier.Alt | Key.LetterI,
+        display: getChordDisplay(Modifier.Alt | Key.LetterI),
         expected: true,
       },
 
       // Shift modifier
       {
-        name: "returns false if Shift key is specified but not in event",
-        event: new KeyboardEvent("keydown", { key: "L", shiftKey: false }),
-        chord: Modifier.Shift | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "J", shiftKey: false }),
+        chord: Modifier.Shift | Key.LetterJ,
+        display: getChordDisplay(Modifier.Shift | Key.LetterJ),
         expected: false,
       },
       {
-        name: "returns false if Shift key is not specified but in event",
-        event: new KeyboardEvent("keydown", { key: "L", shiftKey: true }),
-        chord: Modifier.Ctrl | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "M", shiftKey: true }),
+        chord: Modifier.Ctrl | Key.LetterM,
+        display: getChordDisplay(Modifier.Ctrl | Key.LetterM),
         expected: false,
       },
       {
-        name: "returns true if Shift key is specified and in event",
-        event: new KeyboardEvent("keydown", { key: "L", shiftKey: true }),
-        chord: Modifier.Shift | Key.LetterL,
+        event: new KeyboardEvent("keydown", { key: "N", shiftKey: true }),
+        chord: Modifier.Shift | Key.LetterN,
+        display: getChordDisplay(Modifier.Shift | Key.LetterN),
         expected: true,
       },
-    ])("returns $expected when chord is $chord", async ({ event, chord, expected }) => {
-      const result = isChordPressed(event, chord);
+    ])(
+      "returns $expected when $display ($chord) is pressed",
+      async ({ event, chord, expected }) => {
+        const result = isChordPressed(event, chord);
 
-      expect(result).toBe(expected);
-    });
+        expect(result).toBe(expected);
+      },
+    );
   });
 
   it("returns true if only modifiers are specified with no key", () => {

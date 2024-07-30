@@ -1,4 +1,4 @@
-import { stripToken } from "./common.ts";
+import { getKeyForLookup, stripToken } from "./common.ts";
 import {
   eventKeyByKeyEnumTable,
   keyEnumByEventKeyTable,
@@ -145,13 +145,7 @@ function eventToTokens(event: ChordedEvent): TokenSet {
   }
 
   if ("key" in event) {
-    let key = event.key;
-
-    // Only convert single letters to upper case. Numbers are also included
-    // here, but converting them to upper case does nothing:
-    if (key.length === 1) {
-      key = key.toUpperCase();
-    }
+    const key = getKeyForLookup(event.key);
 
     const keyEnum = keyEnumByEventKeyTable.get(key);
 
