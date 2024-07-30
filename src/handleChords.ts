@@ -3,13 +3,19 @@ import type { ChordedEvent } from "./types.ts";
 
 type ChordMatchCallback<E extends ChordedEvent> = (event: E) => void;
 
-interface ChordMatcher<E extends ChordedEvent> {
-  isOneOf(chord: number, callback: ChordMatchCallback<E>): ChordMatcher<E>;
-  isAnyOf(chords: number[], callback: ChordMatchCallback<E>): ChordMatcher<E>;
+type ChordInput = number | number[];
+
+type OnChordMatch<E extends ChordedEvent> = (
+  chords: ChordInput,
+  callback: ChordMatchCallback<E>,
+) => ChordHandler<E>;
+
+interface ChordHandler<E extends ChordedEvent> {
+  on: OnChordMatch<E>;
 }
 
 /**
- * Fires the matchers that map to the specified key or mouse chords for the
+ * Fires the handlers that map to the specified key or mouse chords for the
  * specified keyboard or mouse event.
  *
  * @param event Keyboard or mouse event from an event listener.
@@ -18,15 +24,15 @@ interface ChordMatcher<E extends ChordedEvent> {
  *
  * @example
  *  function handleKeyDown(event: KeyboardEvent): void {
- *    handleChords(event, (matcher) => {
- *      matcher
- *        .isOneOf(Modifier.Alt | Key.LetterC, () => {
+ *    handleChords(event, (handler) => {
+ *      handler
+ *        .on(Modifier.Alt | Key.LetterC, () => {
  *          // Fired only when Alt + C is pressed.
  *        })
- *        .isOneOf(Key.LetterC, () => {
+ *        .on(Key.LetterC, () => {
  *          // Fired only when C is pressed (without modifiers).
  *        })
- *        .isAnyOf([Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
+ *        .on([Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
  *          // Fired when Alt + C _or_ C is pressed.
  *          event.preventDefault();
  *        });
@@ -35,28 +41,23 @@ interface ChordMatcher<E extends ChordedEvent> {
  */
 export function handleChords<E extends ChordedEvent>(
   event: E,
-  builder: (matcher: ChordMatcher<E>) => void,
+  builder: (handler: ChordHandler<E>) => void,
 ): void {
-  const matcher: ChordMatcher<E> = {
-    isOneOf(chord: number, callback: ChordMatchCallback<E>): ChordMatcher<E> {
-      if (isChordPressed(event, chord)) {
-        callback(event);
+  const handler: ChordHandler<E> = {
+    on(chords: ChordInput, callback: ChordMatchCallback<E>): ChordHandler<E> {
+      if (Array.isArray(chords)) {
+        if (isChordPressed(event, ...chords)) {
+          callback(event);
+        }
+      } else {
+        if (isChordPressed(event, chords)) {
+          callback(event);
+        }
       }
 
-      return matcher;
-    },
-
-    isAnyOf(
-      chords: number[],
-      callback: ChordMatchCallback<E>,
-    ): ChordMatcher<E> {
-      if (isChordPressed(event, ...chords)) {
-        callback(event);
-      }
-
-      return matcher;
+      return handler;
     },
   };
 
-  return builder(matcher);
+  return builder(handler);
 }

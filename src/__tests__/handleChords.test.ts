@@ -8,15 +8,15 @@ describe("the handleChords function", () => {
 
     const event = new KeyboardEvent("keydown", { key: "c", altKey: true, cancelable: true });
 
-    handleChords(event, (matcher) => {
-      matcher
-        .isOneOf(Modifier.Alt | Key.LetterC, () => {
+    handleChords(event, (handler) => {
+      handler
+        .on(Modifier.Alt | Key.LetterC, () => {
           handlerFired();
         })
-        .isOneOf(Key.LetterC, () => {
+        .on(Key.LetterC, () => {
           handlerNotFired();
         })
-        .isAnyOf([Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
+        .on([Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
           handlerFired();
           event.preventDefault();
         });
