@@ -41,5 +41,34 @@ describe("within handlers", () => {
       expect(handlerNotFired).not.toHaveBeenCalledTimes(1);
       expect(event.defaultPrevented).toBe(true);
     });
+
+    it("handles arrow keys", () => {
+      const handlerFired = vi.fn();
+      const handlerNotFired = vi.fn();
+
+      const event = new KeyboardEvent("keydown", {
+        key: "ArrowDown",
+        altKey: true,
+        cancelable: true,
+      });
+
+      handleChords(event, (handler) => {
+        handler
+          .on(Modifier.Alt | Key.ArrowDown, () => {
+            handlerFired();
+          })
+          .on(Key.ArrowDown, () => {
+            handlerNotFired();
+          })
+          .on([Modifier.Alt | Key.ArrowDown, Key.ArrowDown], (event) => {
+            handlerFired();
+            event.preventDefault();
+          });
+      });
+
+      expect(handlerFired).toHaveBeenCalledTimes(2);
+      expect(handlerNotFired).not.toHaveBeenCalledTimes(1);
+      expect(event.defaultPrevented).toBe(true);
+    });
   });
 });

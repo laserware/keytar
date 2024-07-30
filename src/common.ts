@@ -23,3 +23,17 @@ export function stripToken(chord: Chord, token: Token): number {
 export function hasTokenInChord(chord: Chord, token: Token): boolean {
   return (chord & token) === token;
 }
+
+/**
+ * Returns the specified key as a valid value for the lookup table.
+ *
+ * @param key Key to convert to lookup key.
+ */
+export function getKeyForLookup(key: string): string {
+  // Only convert single letters to upper case:
+  if (key.length === 1 && /[a-z]/i.test(key)) {
+    return key.toUpperCase();
+  } else {
+    return key;
+  }
+}
