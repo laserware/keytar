@@ -1,19 +1,25 @@
-import type { Chord } from "./types.ts";
+import type { Token } from "./types.ts";
 
-export function stripChord(combo: number, chord: number): number {
-  if (hasChordInCombo(combo, chord)) {
-    return combo & ~chord;
+/**
+ * Strips the {@link Token} from the specified {@link Chord} and returns the result.
+ *
+ * @param chord Combination of {@link Token} elements to strip token from.
+ * @param token Token to remove from chord.
+ */
+export function stripToken(chord: number, token: number): number {
+  if (hasTokenInChord(chord, token)) {
+    return chord & ~token;
   } else {
-    return combo;
+    return chord;
   }
 }
 
 /**
- * Returns true if the specified combo includes the specified chord.
+ * Returns true if the specified {@link Chord} includes the specified {@link Token}.
  *
- * @param combo Combination of modifiers or keys to check against.
- * @param chord Chord to check for.
+ * @param chord Combination of {@link Token} elements to check against.
+ * @param token Token to check for in chord.
  */
-export function hasChordInCombo(combo: number, chord: Chord): boolean {
-  return (combo & chord) === chord;
+export function hasTokenInChord(chord: number, token: Token): boolean {
+  return (chord & token) === token;
 }

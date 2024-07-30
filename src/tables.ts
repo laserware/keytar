@@ -1,10 +1,15 @@
+import { cachePlatform, Platform } from "@laserware/arcade";
+
 import {
   EventButton,
   Key,
   Modifier,
   MouseButton,
+  type Chord,
   type KeyModifierState,
 } from "./types.ts";
+
+const platform = cachePlatform();
 
 export const modifierByModifierStatusTable = new Map<
   KeyModifierState,
@@ -192,4 +197,29 @@ export const keyEnumByEventKeyTable = new Map<string, Key>([
   ["\\", Key.Backslash],
   ["]", Key.BracketRight],
   [`"`, Key.Quote],
+]);
+
+export const tokensDisplayTable = new Map<Chord, string>([
+  [MouseButton.Auxiliary, "Middle Click"],
+  [MouseButton.BrowserBack, "Back Click"],
+  [MouseButton.BrowserForward, "Forward Click"],
+  [MouseButton.Left, "Left Click"],
+  [MouseButton.Right, "Right Click"],
+  [Modifier.Alt, platform === Platform.Mac ? "⌥" : "Alt"],
+  [Modifier.Cmd, platform === Platform.Mac ? "⌘" : "Meta"],
+  [Modifier.Ctrl, platform === Platform.Mac ? "⌃" : "Ctrl"],
+  [Modifier.Shift, "Shift"],
+  [Modifier.CmdOrCtrl, platform === Platform.Mac ? "⌘" : "Ctrl"],
+  [Key.ArrowDown, "▼"],
+  [Key.ArrowLeft, "◀"],
+  [Key.ArrowRight, "▶"],
+  [Key.ArrowUp, "▲"],
+  [Key.Backslash, "\\"],
+  [Key.BracketLeft, "["],
+  [Key.BracketRight, "]"],
+  [Key.Comma, ","],
+  [Key.Equal, "+"],
+  [Key.Escape, "Esc"],
+  [Key.Minus, "-"],
+  [Key.ForwardSlash, "/"],
 ]);

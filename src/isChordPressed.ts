@@ -1,6 +1,6 @@
 import { cachePlatform, Platform } from "@laserware/arcade";
 
-import { hasChordInCombo, stripChord } from "./common.ts";
+import { hasTokenInChord, stripToken } from "./common.ts";
 import { eventKeyByKeyEnumTable } from "./tables.ts";
 import {
   EventButton,
@@ -12,6 +12,13 @@ import {
 
 const platform = cachePlatform();
 
+/**
+ * Returns true if one of the specified keyboard or mouse chords are pressed
+ * based on the specified keyboard or mouse event.
+ *
+ * @param event Keyboard or mouse event from an event listener.
+ * @param chords Combination of {@link Token} elements to check for from the event.
+ */
 export function isChordPressed(
   event: ChordedEvent,
   ...chords: Chord[]
@@ -23,23 +30,23 @@ export function isChordPressed(
       const button = event.buttons as EventButton;
 
       if (button === EventButton.Left) {
-        lookup = stripChord(lookup, MouseButton.Left);
+        lookup = stripToken(lookup, MouseButton.Left);
       }
 
       if (button === EventButton.Right) {
-        lookup = stripChord(lookup, MouseButton.Right);
+        lookup = stripToken(lookup, MouseButton.Right);
       }
 
       if (button === EventButton.Auxiliary) {
-        lookup = stripChord(lookup, MouseButton.Auxiliary);
+        lookup = stripToken(lookup, MouseButton.Auxiliary);
       }
 
       if (button === EventButton.BrowserBack) {
-        lookup = stripChord(lookup, MouseButton.BrowserBack);
+        lookup = stripToken(lookup, MouseButton.BrowserBack);
       }
 
       if (button === EventButton.BrowserForward) {
-        lookup = stripChord(lookup, MouseButton.BrowserForward);
+        lookup = stripToken(lookup, MouseButton.BrowserForward);
       }
 
       if (lookup === 0) {
@@ -47,7 +54,7 @@ export function isChordPressed(
       }
     }
 
-    if (hasChordInCombo(chord, Modifier.CmdOrCtrl)) {
+    if (hasTokenInChord(chord, Modifier.CmdOrCtrl)) {
       if (platform === Platform.Mac) {
         if (event.metaKey) {
           lookup = lookup & ~Modifier.CmdOrCtrl;
@@ -63,25 +70,25 @@ export function isChordPressed(
       }
     }
 
-    if (hasChordInCombo(chord, Modifier.Alt) && event.altKey) {
+    if (hasTokenInChord(chord, Modifier.Alt) && event.altKey) {
       lookup = lookup & ~Modifier.Alt;
     } else if (event.altKey) {
       return false;
     }
 
-    if (hasChordInCombo(chord, Modifier.Ctrl) && event.ctrlKey) {
+    if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
       lookup = lookup & ~Modifier.Ctrl;
     } else if (event.ctrlKey) {
       return false;
     }
 
-    if (hasChordInCombo(chord, Modifier.Cmd) && event.metaKey) {
+    if (hasTokenInChord(chord, Modifier.Cmd) && event.metaKey) {
       lookup = lookup & ~Modifier.Cmd;
     } else if (event.metaKey) {
       return false;
     }
 
-    if (hasChordInCombo(chord, Modifier.Shift) && event.shiftKey) {
+    if (hasTokenInChord(chord, Modifier.Shift) && event.shiftKey) {
       lookup = lookup & ~Modifier.Shift;
     } else if (event.shiftKey) {
       return false;

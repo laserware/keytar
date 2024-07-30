@@ -1,11 +1,10 @@
-import { cachePlatform, Platform } from "@laserware/arcade";
-
-import { stripChord } from "./common.ts";
+import { stripToken } from "./common.ts";
 import {
   eventKeyByKeyEnumTable,
   keyEnumByEventKeyTable,
   modifierByModifierStatusTable,
   mouseButtonByEventButtonTable,
+  tokensDisplayTable,
 } from "./tables.ts";
 import {
   EventButton,
@@ -14,34 +13,10 @@ import {
   MouseButton,
   type Chord,
   type ChordedEvent,
+  type Token,
 } from "./types.ts";
 
-const platform = cachePlatform();
-
-const chordDisplayTable = new Map<Chord, string>([
-  [MouseButton.Auxiliary, "Middle Click"],
-  [MouseButton.BrowserBack, "Back Click"],
-  [MouseButton.BrowserForward, "Forward Click"],
-  [MouseButton.Left, "Left Click"],
-  [MouseButton.Right, "Right Click"],
-  [Modifier.Alt, platform === Platform.Mac ? "⌥" : "Alt"],
-  [Modifier.Cmd, platform === Platform.Mac ? "⌘" : "Meta"],
-  [Modifier.Ctrl, platform === Platform.Mac ? "⌃" : "Ctrl"],
-  [Modifier.Shift, "Shift"],
-  [Modifier.CmdOrCtrl, platform === Platform.Mac ? "⌘" : "Ctrl"],
-  [Key.ArrowDown, "▼"],
-  [Key.ArrowLeft, "◀"],
-  [Key.ArrowRight, "▶"],
-  [Key.ArrowUp, "▲"],
-  [Key.Backslash, "\\"],
-  [Key.BracketLeft, "["],
-  [Key.BracketRight, "]"],
-  [Key.Comma, ","],
-  [Key.Equal, "+"],
-  [Key.Escape, "Esc"],
-  [Key.Minus, "-"],
-  [Key.ForwardSlash, "/"],
-]);
+type TokenSet = Set<Token>;
 
 /**
  * Returns the display value for the specified chord. If the chord is a combination
@@ -68,108 +43,122 @@ export function getChordDisplay(
   chordOrEvent: Chord | ChordedEvent,
   joinSymbol: string = " + ",
 ): string {
-  let chordSet: ChordSet;
+  const tokens =
+    typeof chordOrEvent === "number"
+      ? chordToTokens(chordOrEvent)
+      : eventToTokens(chordOrEvent);
 
-  if (typeof chordOrEvent === "number") {
-    chordSet = new Set<Chord>();
+  const displayValues: string[] = [];
 
-    let combo = chordOrEvent;
+  for (const token of tokens) {
+    const tokenDisplay = tokensDisplayTable.get(token);
 
-    const nonKeyChords = [
-      Modifier.Alt,
-      Modifier.Cmd,
-      Modifier.Ctrl,
-      Modifier.CmdOrCtrl,
-      Modifier.Shift,
-      MouseButton.Left,
-      MouseButton.Right,
-      MouseButton.Auxiliary,
-      MouseButton.BrowserBack,
-      MouseButton.BrowserForward,
-    ];
-
-    for (const nonKeyChord of nonKeyChords) {
-      const strippedCombo = stripChord(combo, nonKeyChord);
-
-      if (strippedCombo !== combo) {
-        chordSet.add(nonKeyChord);
-      }
-
-      combo = strippedCombo;
-    }
-
-    if (combo !== 0) {
-      chordSet.add(combo);
-    }
-  } else {
-    chordSet = eventToChordSet(chordOrEvent);
-  }
-
-  const chordDisplays: string[] = [];
-
-  for (const chord of chordSet) {
-    const chordDisplay = chordDisplayTable.get(chord);
-
-    if (chordDisplay !== undefined) {
-      chordDisplays.push(chordDisplay);
+    if (tokenDisplay !== undefined) {
+      displayValues.push(tokenDisplay);
       continue;
     }
 
-    const eventKey = eventKeyByKeyEnumTable.get(chord);
+    const eventKey = eventKeyByKeyEnumTable.get(token as Key);
     if (eventKey !== undefined) {
-      chordDisplays.push(eventKey);
+      displayValues.push(eventKey);
       continue;
     }
 
     if (typeof chordOrEvent !== "number" && "key" in chordOrEvent) {
-      chordDisplays.push(chordOrEvent.key);
+      displayValues.push(chordOrEvent.key);
     }
   }
 
-  if (chordDisplays.length === 0) {
+  if (displayValues.length === 0) {
     return "";
   }
 
-  if (chordDisplays.length === 1) {
-    return chordDisplays[0];
+  if (displayValues.length === 1) {
+    return displayValues[0];
   }
 
-  return chordDisplays.join(joinSymbol);
+  return displayValues.join(joinSymbol);
 }
 
-type ChordSet = Set<Chord>;
+/**
+ * Returns a Set with the tokens extracted from the specified chord.
+ *
+ * @param chord Combo of chord values to extra into individual chords.
+ */
+function chordToTokens(chord: number): TokenSet {
+  const tokens = new Set<Token>();
+
+  let combo = chord;
+
+  const nonKeyTokens = [
+    Modifier.Alt,
+    Modifier.Cmd,
+    Modifier.Ctrl,
+    Modifier.CmdOrCtrl,
+    Modifier.Shift,
+    MouseButton.Left,
+    MouseButton.Right,
+    MouseButton.Auxiliary,
+    MouseButton.BrowserBack,
+    MouseButton.BrowserForward,
+  ];
+
+  for (const nonKeyToken of nonKeyTokens) {
+    const strippedCombo = stripToken(combo, nonKeyToken);
+
+    if (strippedCombo !== combo) {
+      tokens.add(nonKeyToken);
+    }
+
+    combo = strippedCombo;
+  }
+
+  if (combo !== 0) {
+    tokens.add(combo);
+  }
+
+  return tokens;
+}
 
 /**
- * Returns a Set with the chords extracted from the specified keyboard or mouse
+ * Returns a Set with the tokens extracted from the specified keyboard or mouse
  * event.
  *
- * @param event Keyboard or mouse event to extract chords from.
+ * @param event Keyboard or mouse event to extract tokens from.
  */
-export function eventToChordSet(event: ChordedEvent): ChordSet {
-  const chords = new Set<Chord>();
+function eventToTokens(event: ChordedEvent): TokenSet {
+  const tokens = new Set<Token>();
+
+  modifierByModifierStatusTable.forEach((modifier, state) => {
+    if (event[state]) {
+      tokens.add(modifier);
+    }
+  });
 
   if ("buttons" in event) {
     const eventButton = event.buttons as EventButton;
 
     const mouseButton = mouseButtonByEventButtonTable.get(eventButton);
     if (mouseButton !== undefined) {
-      chords.add(mouseButton);
+      tokens.add(mouseButton);
     }
   }
-
-  modifierByModifierStatusTable.forEach((modifier, state) => {
-    if (event[state]) {
-      chords.add(modifier);
-    }
-  });
 
   if ("key" in event) {
-    const keyEnum = keyEnumByEventKeyTable.get(event.key.toUpperCase());
+    let key = event.key;
+
+    // Only convert single letters to upper case. Numbers are also included
+    // here, but converting them to upper case does nothing:
+    if (key.length === 1) {
+      key = key.toUpperCase();
+    }
+
+    const keyEnum = keyEnumByEventKeyTable.get(key);
 
     if (keyEnum !== undefined) {
-      chords.add(keyEnum);
+      tokens.add(keyEnum);
     }
   }
 
-  return chords;
+  return tokens;
 }
