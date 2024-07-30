@@ -1,22 +1,121 @@
-export type ChordedEvent = KeyboardEvent | MouseEvent;
-
-export type Chord = Key | Modifier | MouseButton | number;
-
-export type ChordSet = Set<Chord>;
+type KeyModifierStateFields = Pick<
+  ChordedEvent,
+  "altKey" | "ctrlKey" | "shiftKey" | "metaKey"
+>;
 
 /**
- * Represents mouse buttons that could be pressed. These do not match the mouse
- * buttons from the MouseEvent (which are much lower). This is so we can check
- * for a combination of keyboard modifiers and mouse buttons
- * (e.g. Shift + Left Click).
+ * Boolean flag field names from a KeyboardEvent instance used to indicate
+ * which modifiers are down.
  */
-export enum MouseButton {
-  /* 65536   */ None = 0,
-  /* 131072  */ Left = 1 << 16,
-  /* 262144  */ Right = 1 << 17,
-  /* 524288  */ Auxiliary = 1 << 18,
-  /* 1048577 */ BrowserBack = 1 << 19,
-  /* 2097152 */ BrowserForward = 1 << 20,
+export type KeyModifierState = keyof KeyModifierStateFields;
+
+/**
+ * An event from which chords can be extracted (i.e. modifiers, keyboard keys,
+ * or mouse buttons, depending on the event).
+ */
+export type ChordedEvent = KeyboardEvent | MouseEvent;
+
+/**
+ * An arbitrary combination of chord flags, which can be extracted out into
+ * the corresponding keys/buttons.
+ */
+export type Combo = number;
+
+/**
+ * A keyboard modifier or key, mouse button, or combination of these, represented
+ * by a numeric flag from the enums specified in this package.
+ */
+export type Chord = Key | Modifier | MouseButton | Combo;
+
+/**
+ * Numbers that correspond to the key codes of the keyboard. Note that
+ * these are not the same as the character codes and don't support
+ * international keyboards.
+ *
+ * This {@link https://www.toptal.com/developers/keycode/table|table} was used
+ * as a reference for the key values, but a good chunk of them weren't used.
+ */
+export enum Key {
+  Backspace = 8,
+  Tab = 9,
+  Clear = 12,
+  Enter = 13,
+  Pause = 19,
+  CapsLock = 20,
+  Escape = 27,
+  Space = 32,
+  PageUp = 33,
+  PageDown = 34,
+  End = 35,
+  Home = 36,
+  ArrowLeft = 37,
+  ArrowUp = 38,
+  ArrowRight = 39,
+  ArrowDown = 40,
+  Insert = 45,
+  Delete = 46,
+  Help = 47,
+  Number0 = 48,
+  Number1 = 49,
+  Number2 = 50,
+  Number3 = 51,
+  Number4 = 52,
+  Number5 = 53,
+  Number6 = 54,
+  Number7 = 55,
+  Number8 = 56,
+  Number9 = 57,
+  Period = 58,
+  Semicolon = 59,
+  Backquote = 60,
+  Equal = 61,
+  Minus = 63,
+  LetterA = 65,
+  LetterB = 66,
+  LetterC = 67,
+  LetterD = 68,
+  LetterE = 69,
+  LetterF = 70,
+  LetterG = 71,
+  LetterH = 72,
+  LetterI = 73,
+  LetterJ = 74,
+  LetterK = 75,
+  LetterL = 76,
+  LetterM = 77,
+  LetterN = 78,
+  LetterO = 79,
+  LetterP = 80,
+  LetterQ = 81,
+  LetterR = 82,
+  LetterS = 83,
+  LetterT = 84,
+  LetterU = 85,
+  LetterV = 86,
+  LetterW = 87,
+  LetterX = 88,
+  LetterY = 89,
+  LetterZ = 90,
+  F1 = 112,
+  F2 = 113,
+  F3 = 114,
+  F4 = 115,
+  F5 = 116,
+  F6 = 117,
+  F7 = 118,
+  F8 = 119,
+  F9 = 120,
+  F10 = 121,
+  F11 = 122,
+  F12 = 123,
+  NumLock = 144,
+  ScrollLock = 145,
+  BracketLeft = 160,
+  BracketRight = 161,
+  Backslash = 164,
+  Comma = 165,
+  ForwardSlash = 166,
+  Quote = 167,
 }
 
 /**
@@ -36,97 +135,28 @@ export enum EventButton {
 }
 
 /**
- * Represents modifier keys.
+ * Keyboard modifier keys (e.g. Shift, Alt, etc.).
  */
 export enum Modifier {
-  /* 4096  */ Ctrl = 1 << 12,
-  /* 8192  */ Cmd = 1 << 13,
-  /* 12288 */ CmdOrCtrl = Cmd | Ctrl,
-  /* 16384 */ Alt = 1 << 14,
-  /* 32768 */ Shift = 1 << 15,
+  /* 256  */ Alt = 1 << 8,
+  /* 512  */ Cmd = 1 << 9,
+  /* 1024 */ Ctrl = 1 << 10,
+  /* 2048 */ Shift = 1 << 11,
+  /* 4096 */ CmdOrCtrl = 1 << 12,
 }
 
-export type ChordMatchHandler = () => boolean | void;
-
 /**
- * Numbers that correspond to the key codes of the keyboard. Note that
- * these are not the same as the character codes and don't support
- * international keyboards.
+ * Represents mouse buttons that could be pressed. These do not match the mouse
+ * buttons from the MouseEvent (which are much lower). This is so we can check
+ * for a combination of keyboard modifiers and mouse buttons
+ * (e.g. Shift + Left Click).
  */
-export enum Key {
-  Backspace = 1,
-  Tab,
-  Clear,
-  Enter,
-  Escape,
-  Space,
-  PageUp,
-  PageDown,
-  End,
-  Home,
-  ArrowLeft,
-  ArrowUp,
-  ArrowRight,
-  ArrowDown,
-  Insert,
-  Delete,
-  Number0,
-  Number1,
-  Number2,
-  Number3,
-  Number4,
-  Number5,
-  Number6,
-  Number7,
-  Number8,
-  Number9,
-  LetterA,
-  LetterB,
-  LetterC,
-  LetterD,
-  LetterE,
-  LetterF,
-  LetterG,
-  LetterH,
-  LetterI,
-  LetterJ,
-  LetterK,
-  LetterL,
-  LetterM,
-  LetterN,
-  LetterO,
-  LetterP,
-  LetterQ,
-  LetterR,
-  LetterS,
-  LetterT,
-  LetterU,
-  LetterV,
-  LetterW,
-  LetterX,
-  LetterY,
-  LetterZ,
-  F1,
-  F2,
-  F3,
-  F4,
-  F5,
-  F6,
-  F7,
-  F8,
-  F9,
-  F10,
-  F11,
-  F12,
-  Semicolon,
-  Equal,
-  Comma,
-  Minus,
-  Period,
-  ForwardSlash,
-  Backquote,
-  BracketLeft,
-  Backslash,
-  BracketRight,
-  Quote,
+export enum MouseButton {
+  /* 4096   */ None = 0,
+  // We start here so we can include keyboard modifiers:
+  /* 8192   */ Left = 1 << 13,
+  /* 16384  */ Right = 1 << 14,
+  /* 32768  */ Auxiliary = 1 << 15,
+  /* 65536  */ BrowserBack = 1 << 16,
+  /* 131073 */ BrowserForward = 1 << 17,
 }
