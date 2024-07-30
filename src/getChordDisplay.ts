@@ -1,22 +1,47 @@
 import { cachePlatform, Platform } from "@laserware/arcade";
 
-import { eventToChordSet } from "./eventToChords.ts";
+import { stripChord } from "./common.ts";
 import {
+  eventKeyByKeyEnumTable,
+  keyEnumByEventKeyTable,
+  modifierByModifierStatusTable,
+  mouseButtonByEventButtonTable,
+} from "./tables.ts";
+import {
+  EventButton,
   Key,
   Modifier,
   MouseButton,
   type Chord,
   type ChordedEvent,
-  type ChordSet,
 } from "./types.ts";
 
 const platform = cachePlatform();
 
-const allReferenceChords: Chord[] = [
-  ...Object.values(MouseButton),
-  ...Object.values(Modifier),
-  ...Object.values(Key),
-] as Chord[];
+const chordDisplayTable = new Map<Chord, string>([
+  [MouseButton.Auxiliary, "Middle Click"],
+  [MouseButton.BrowserBack, "Back Click"],
+  [MouseButton.BrowserForward, "Forward Click"],
+  [MouseButton.Left, "Left Click"],
+  [MouseButton.Right, "Right Click"],
+  [Modifier.Alt, platform === Platform.Mac ? "⌥" : "Alt"],
+  [Modifier.Cmd, platform === Platform.Mac ? "⌘" : "Meta"],
+  [Modifier.Ctrl, platform === Platform.Mac ? "⌃" : "Ctrl"],
+  [Modifier.Shift, "Shift"],
+  [Modifier.CmdOrCtrl, platform === Platform.Mac ? "⌘" : "Ctrl"],
+  [Key.ArrowDown, "▼"],
+  [Key.ArrowLeft, "◀"],
+  [Key.ArrowRight, "▶"],
+  [Key.ArrowUp, "▲"],
+  [Key.Backslash, "\\"],
+  [Key.BracketLeft, "["],
+  [Key.BracketRight, "]"],
+  [Key.Comma, ","],
+  [Key.Equal, "+"],
+  [Key.Escape, "Esc"],
+  [Key.Minus, "-"],
+  [Key.ForwardSlash, "/"],
+]);
 
 /**
  * Returns the display value for the specified chord. If the chord is a combination
@@ -48,10 +73,33 @@ export function getChordDisplay(
   if (typeof chordOrEvent === "number") {
     chordSet = new Set<Chord>();
 
-    for (const referenceChord of allReferenceChords) {
-      if ((chordOrEvent & referenceChord) === referenceChord) {
-        chordSet.add(referenceChord);
+    let combo = chordOrEvent;
+
+    const nonKeyChords = [
+      Modifier.Alt,
+      Modifier.Cmd,
+      Modifier.Ctrl,
+      Modifier.CmdOrCtrl,
+      Modifier.Shift,
+      MouseButton.Left,
+      MouseButton.Right,
+      MouseButton.Auxiliary,
+      MouseButton.BrowserBack,
+      MouseButton.BrowserForward,
+    ];
+
+    for (const nonKeyChord of nonKeyChords) {
+      const strippedCombo = stripChord(combo, nonKeyChord);
+
+      if (strippedCombo !== combo) {
+        chordSet.add(nonKeyChord);
       }
+
+      combo = strippedCombo;
+    }
+
+    if (combo !== 0) {
+      chordSet.add(combo);
     }
   } else {
     chordSet = eventToChordSet(chordOrEvent);
@@ -60,22 +108,21 @@ export function getChordDisplay(
   const chordDisplays: string[] = [];
 
   for (const chord of chordSet) {
-    const mouseButtonDisplay = displayForMouseButton(chord);
+    const chordDisplay = chordDisplayTable.get(chord);
 
-    if (mouseButtonDisplay !== null) {
-      chordDisplays.push(mouseButtonDisplay);
+    if (chordDisplay !== undefined) {
+      chordDisplays.push(chordDisplay);
       continue;
     }
 
-    const modDisplay = displayForMod(chord);
-    if (modDisplay !== null) {
-      chordDisplays.push(modDisplay);
+    const eventKey = eventKeyByKeyEnumTable.get(chord);
+    if (eventKey !== undefined) {
+      chordDisplays.push(eventKey);
       continue;
     }
 
-    const keyDisplay = displayForKey(chord);
-    if (keyDisplay !== null) {
-      chordDisplays.push(keyDisplay);
+    if (typeof chordOrEvent !== "number" && "key" in chordOrEvent) {
+      chordDisplays.push(chordOrEvent.key);
     }
   }
 
@@ -90,98 +137,39 @@ export function getChordDisplay(
   return chordDisplays.join(joinSymbol);
 }
 
-/**
- * Returns the value to display for the specified mouse button.
- */
-function displayForMouseButton(mouseButtonChord: Chord): string | null {
-  switch (mouseButtonChord) {
-    case MouseButton.Auxiliary:
-      return "Middle Click";
-
-    case MouseButton.BrowserBack:
-      return "Back Click";
-
-    case MouseButton.BrowserForward:
-      return "Forward Click";
-
-    case MouseButton.Left:
-      return "Left Click";
-
-    case MouseButton.Right:
-      return "Right Click";
-
-    default:
-      return null;
-  }
-}
+type ChordSet = Set<Chord>;
 
 /**
- * Returns the platform-dependent display value for the specified modifier.
+ * Returns a Set with the chords extracted from the specified keyboard or mouse
+ * event.
+ *
+ * @param event Keyboard or mouse event to extract chords from.
  */
-function displayForMod(modChord: Chord): string | null {
-  switch (modChord) {
-    case Modifier.Cmd:
-      return platform === Platform.Mac ? "⌘" : "Meta";
+export function eventToChordSet(event: ChordedEvent): ChordSet {
+  const chords = new Set<Chord>();
 
-    case Modifier.Ctrl:
-      return platform === Platform.Mac ? "⌃" : "Ctrl";
+  if ("buttons" in event) {
+    const eventButton = event.buttons as EventButton;
 
-    case Modifier.CmdOrCtrl:
-      return platform === Platform.Mac ? "⌘" : "Ctrl";
-
-    case Modifier.Alt:
-      return platform === Platform.Mac ? "⌥" : "Alt";
-
-    case Modifier.Shift:
-      return "Shift";
-
-    default:
-      return null;
+    const mouseButton = mouseButtonByEventButtonTable.get(eventButton);
+    if (mouseButton !== undefined) {
+      chords.add(mouseButton);
+    }
   }
-}
 
-/**
- * Returns the value to display for the specified key enum or Event.key value.
- */
-function displayForKey(keyChord: Chord): string | null {
-  switch (keyChord) {
-    case Key.ArrowDown:
-      return "▼";
+  modifierByModifierStatusTable.forEach((modifier, state) => {
+    if (event[state]) {
+      chords.add(modifier);
+    }
+  });
 
-    case Key.ArrowLeft:
-      return "◀";
+  if ("key" in event) {
+    const keyEnum = keyEnumByEventKeyTable.get(event.key.toUpperCase());
 
-    case Key.ArrowRight:
-      return "▶";
-
-    case Key.ArrowUp:
-      return "▲";
-
-    case Key.Backslash:
-      return "\\";
-
-    case Key.BracketLeft:
-      return "[";
-
-    case Key.BracketRight:
-      return "]";
-
-    case Key.Comma:
-      return ",";
-
-    case Key.Equal:
-      return "+";
-
-    case Key.Escape:
-      return "Esc";
-
-    case Key.Minus:
-      return "-";
-
-    case Key.ForwardSlash:
-      return "/";
-
-    default:
-      return null;
+    if (keyEnum !== undefined) {
+      chords.add(keyEnum);
+    }
   }
+
+  return chords;
 }
