@@ -21,7 +21,12 @@ export type ChordedEvent = KeyboardEvent | MouseEvent;
 export type Token = Key | Modifier | MouseButton;
 
 /**
- * A {@link Token} or combination of Tokens.
+ * A single {@link Token} or a combination of Tokens which are joined via a
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR|bitwise OR (|) operator}.
+ *
+ * @example
+ * const single = Key.LetterC;
+ * const combination = Modifier.Alt | Key.Number2;
  */
 export type Chord = Token | number;
 

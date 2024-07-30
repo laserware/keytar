@@ -30,9 +30,6 @@ export const mouseButtonByEventButtonTable = new Map<EventButton, MouseButton>([
   [EventButton.BrowserForward, MouseButton.BrowserForward],
 ]);
 
-/**
- * Table of `Key` enum value to `event.key` mapping.
- */
 export const eventKeyByKeyEnumTable = new Map<Key, string>([
   [Key.Backspace, "Backspace"],
   [Key.Tab, "Tab"],
