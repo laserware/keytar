@@ -19,17 +19,17 @@ import {
 type TokenSet = Set<Token>;
 
 /**
- * Returns the display value for the specified chord. If the chord is a combination
+ * Returns the display value for the specified {@link Chord}. If the Chord is a combination
  * of multiple keys/buttons, the display value for each key/button is joined with
  * the specified join symbol.
  *
- * @param chord Chord containing keys/buttons to get display value for.
+ * @param chord Combination of {@link Token} elements to get display value for.
  * @param [joinSymbol=" + "] Symbol to join chord display values.
  */
 export function getChordDisplay(chord: Chord, joinSymbol?: string): string;
 /**
- * Returns the display value for the chord derived from the specified keyboard or
- * mouse event. If the chord is a combination of multiple keys/buttons, the
+ * Returns the display value for the {@link Chord} derived from the specified keyboard or
+ * mouse event. If the Chord is a combination of multiple keys/buttons, the
  * display value for each key/button is joined with the specified join symbol.
  *
  * @param event Keyboard or mouse event to get chord display for.
@@ -83,9 +83,9 @@ export function getChordDisplay(
 /**
  * Returns a Set with the {@link Token} elements extracted from the specified {@link Chord}.
  *
- * @param chord Combination of token elements to extra into individual tokens.
+ * @param chord Combination of {@link Token} elements to extra into individual tokens.
  */
-function chordToTokens(chord: number): TokenSet {
+function chordToTokens(chord: Chord): TokenSet {
   const tokens = new Set<Token>();
 
   let currentChord = chord;

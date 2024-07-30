@@ -13,7 +13,7 @@ import {
 const platform = cachePlatform();
 
 /**
- * Returns true if one of the specified keyboard or mouse chords are pressed
+ * Returns true if one of the specified {@link Chord} combinations are pressed
  * based on the specified keyboard or mouse event.
  *
  * @param event Keyboard or mouse event from an event listener.

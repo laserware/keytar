@@ -1,4 +1,4 @@
-import type { Token } from "./types.ts";
+import type { Chord, Token } from "./types.ts";
 
 /**
  * Strips the {@link Token} from the specified {@link Chord} and returns the result.
@@ -6,7 +6,7 @@ import type { Token } from "./types.ts";
  * @param chord Combination of {@link Token} elements to strip token from.
  * @param token Token to remove from chord.
  */
-export function stripToken(chord: number, token: number): number {
+export function stripToken(chord: Chord, token: Token): number {
   if (hasTokenInChord(chord, token)) {
     return chord & ~token;
   } else {
@@ -20,6 +20,6 @@ export function stripToken(chord: number, token: number): number {
  * @param chord Combination of {@link Token} elements to check against.
  * @param token Token to check for in chord.
  */
-export function hasTokenInChord(chord: number, token: Token): boolean {
+export function hasTokenInChord(chord: Chord, token: Token): boolean {
   return (chord & token) === token;
 }
