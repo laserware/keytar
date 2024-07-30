@@ -1,6 +1,6 @@
 import { getChordDisplay } from "../getChordDisplay.ts";
 import { isChordPressed } from "../isChordPressed.ts";
-import { Key, Modifier } from "../types.ts";
+import { EventButton, Key, Modifier, MouseButton } from "../types.ts";
 
 describe("the isChordPressed function", () => {
   describe("returns true if requirements are met", () => {
@@ -169,6 +169,14 @@ describe("the isChordPressed function", () => {
     });
 
     const result = isChordPressed(event, Modifier.Ctrl | Modifier.Alt | Modifier.Shift);
+
+    expect(result).toBe(true);
+  });
+
+  it("returns true if mouse buttons are specified and are clicked", () => {
+    const event = new MouseEvent("mousedown", { altKey: true, buttons: EventButton.Left });
+
+    const result = isChordPressed(event, Modifier.Alt | MouseButton.Left);
 
     expect(result).toBe(true);
   });

@@ -98,9 +98,12 @@ export function isChordPressed(
       return true;
     }
 
-    // @ts-expect-error: If this was a MouseEvent, the `keyCode === 0` check would have caught it.
-    if (event.key.toUpperCase() === eventKeyByKeyEnumTable.get(lookup)) {
-      return true;
+    if ("key" in event) {
+      const key = event.key.toUpperCase();
+
+      if (key === eventKeyByKeyEnumTable.get(lookup)) {
+        return true;
+      }
     }
   }
 

@@ -129,11 +129,11 @@ function chordToTokens(chord: Chord): TokenSet {
 function eventToTokens(event: ChordedEvent): TokenSet {
   const tokens = new Set<Token>();
 
-  modifierByModifierStatusTable.forEach((modifier, state) => {
+  for (const [state, modifier] of modifierByModifierStatusTable) {
     if (event[state]) {
       tokens.add(modifier);
     }
-  });
+  }
 
   if ("buttons" in event) {
     const eventButton = event.buttons as EventButton;
