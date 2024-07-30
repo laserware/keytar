@@ -81,14 +81,14 @@ export function getChordDisplay(
 }
 
 /**
- * Returns a Set with the tokens extracted from the specified chord.
+ * Returns a Set with the {@link Token} elements extracted from the specified {@link Chord}.
  *
- * @param chord Combo of chord values to extra into individual chords.
+ * @param chord Combination of token elements to extra into individual tokens.
  */
 function chordToTokens(chord: number): TokenSet {
   const tokens = new Set<Token>();
 
-  let combo = chord;
+  let currentChord = chord;
 
   const nonKeyTokens = [
     Modifier.Alt,
@@ -104,17 +104,17 @@ function chordToTokens(chord: number): TokenSet {
   ];
 
   for (const nonKeyToken of nonKeyTokens) {
-    const strippedCombo = stripToken(combo, nonKeyToken);
+    const strippedChord = stripToken(currentChord, nonKeyToken);
 
-    if (strippedCombo !== combo) {
+    if (strippedChord !== currentChord) {
       tokens.add(nonKeyToken);
     }
 
-    combo = strippedCombo;
+    currentChord = strippedChord;
   }
 
-  if (combo !== 0) {
-    tokens.add(combo);
+  if (currentChord !== 0) {
+    tokens.add(currentChord);
   }
 
   return tokens;
