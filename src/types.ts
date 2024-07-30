@@ -10,22 +10,20 @@ type KeyModifierStateFields = Pick<
 export type KeyModifierState = keyof KeyModifierStateFields;
 
 /**
- * An event from which chords can be extracted (i.e. modifiers, keyboard keys,
- * or mouse buttons, depending on the event).
+ * An event from which a combination of {@link Token} elements can be extracted.
  */
 export type ChordedEvent = KeyboardEvent | MouseEvent;
 
 /**
- * An arbitrary combination of chord flags, which can be extracted out into
- * the corresponding keys/buttons.
+ * A {@link Key}, {@link Modifier}, or {@link MouseButton}. This represents a
+ * single element in a chord.
  */
-export type Combo = number;
+export type Token = Key | Modifier | MouseButton;
 
 /**
- * A keyboard modifier or key, mouse button, or combination of these, represented
- * by a numeric flag from the enums specified in this package.
+ * A {@link Token} or combination of Tokens.
  */
-export type Chord = Key | Modifier | MouseButton | Combo;
+export type Chord = Token | number;
 
 /**
  * Numbers that correspond to the key codes of the keyboard. Note that
