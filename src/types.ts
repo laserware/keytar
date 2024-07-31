@@ -144,8 +144,8 @@ export enum Modifier {
   /* 256  */ Alt = 1 << 8,
   /* 512  */ Cmd = 1 << 9,
   /* 1024 */ Ctrl = 1 << 10,
+  /* 1536 */ CmdOrCtrl = Cmd | Ctrl,
   /* 2048 */ Shift = 1 << 11,
-  /* 4096 */ CmdOrCtrl = 1 << 12,
 }
 
 /**
