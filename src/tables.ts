@@ -1,4 +1,4 @@
-import { cachePlatform, Platform } from "@laserware/arcade";
+import { isPlatform } from "@laserware/arcade";
 
 import {
   EventButton,
@@ -8,8 +8,6 @@ import {
   type Chord,
   type KeyModifierState,
 } from "./types.ts";
-
-const platform = cachePlatform();
 
 export const modifierByModifierStatusTable = new Map<
   KeyModifierState,
@@ -202,11 +200,11 @@ export const tokensDisplayTable = new Map<Chord, string>([
   [MouseButton.BrowserForward, "Forward Click"],
   [MouseButton.Left, "Left Click"],
   [MouseButton.Right, "Right Click"],
-  [Modifier.Alt, platform === Platform.Mac ? "⌥" : "Alt"],
-  [Modifier.Cmd, platform === Platform.Mac ? "⌘" : "Meta"],
-  [Modifier.Ctrl, platform === Platform.Mac ? "⌃" : "Ctrl"],
+  [Modifier.Alt, isPlatform("mac") ? "⌥" : "Alt"],
+  [Modifier.Cmd, isPlatform("mac") ? "⌘" : "Meta"],
+  [Modifier.Ctrl, isPlatform("mac") ? "⌃" : "Ctrl"],
   [Modifier.Shift, "Shift"],
-  [Modifier.CmdOrCtrl, platform === Platform.Mac ? "⌘" : "Ctrl"],
+  [Modifier.CmdOrCtrl, isPlatform("mac") ? "⌘" : "Ctrl"],
   [Key.ArrowDown, "▼"],
   [Key.ArrowLeft, "◀"],
   [Key.ArrowRight, "▶"],

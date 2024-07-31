@@ -7,8 +7,7 @@ vi.mock("@laserware/arcade", async (importActual) => {
   return {
     // @ts-ignore
     ...mod,
-    // @ts-ignore
-    cachePlatform: () => mod.Platform.Mac,
+    isPlatform: (platform: string) => platform === "mac",
   };
 });
 

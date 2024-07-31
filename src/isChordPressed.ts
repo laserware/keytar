@@ -1,4 +1,4 @@
-import { cachePlatform, Platform } from "@laserware/arcade";
+import { isPlatform } from "@laserware/arcade";
 
 import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.ts";
 import { eventKeyByKeyEnumTable } from "./tables.ts";
@@ -9,8 +9,6 @@ import {
   type Chord,
   type ChordedEvent,
 } from "./types.ts";
-
-const platform = cachePlatform();
 
 /**
  * Returns true if one of the specified {@link Chord} combinations are pressed
@@ -54,16 +52,24 @@ export function isChordPressed(
       }
     }
 
+    /*
+     * Since the `Modifier.CmdOrCtrl` flag is a bitwise OR of `Modifier.Cmd` and
+     * `Modifier.Ctrl`, we want to clear the flag for the modifier that _isn't_
+     * associated with that platform. So on macOS, we clear the `Modifier.Ctrl`
+     * flag since we're checking if `Modifier.Cmd` was pressed. On Linux/Windows,
+     * we clear `Modifier.Cmd` (or Windows key), since we're checking if
+     * `Modifier.Ctrl` was pressed.
+     */
     if (hasTokenInChord(chord, Modifier.CmdOrCtrl)) {
-      if (platform === Platform.Mac) {
+      if (isPlatform("mac")) {
         if (event.metaKey) {
-          lookup = lookup & ~Modifier.CmdOrCtrl;
+          lookup = lookup & ~Modifier.Ctrl;
         } else {
           return false;
         }
       } else {
         if (event.ctrlKey) {
-          lookup = lookup & ~Modifier.CmdOrCtrl;
+          lookup = lookup & ~Modifier.Cmd;
         } else {
           return false;
         }
