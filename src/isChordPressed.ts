@@ -21,6 +21,8 @@ export function isChordPressed(
   event: ChordedEvent,
   ...chords: Chord[]
 ): boolean {
+  let matchCount = 0;
+
   for (const chord of chords) {
     let lookup = chord;
 
@@ -48,7 +50,8 @@ export function isChordPressed(
       }
 
       if (lookup === 0) {
-        return true;
+        matchCount++;
+        continue;
       }
     }
 
@@ -65,13 +68,13 @@ export function isChordPressed(
         if (event.metaKey) {
           lookup = lookup & ~Modifier.Ctrl;
         } else {
-          return false;
+          continue;
         }
       } else {
         if (event.ctrlKey) {
           lookup = lookup & ~Modifier.Cmd;
         } else {
-          return false;
+          continue;
         }
       }
     }
@@ -79,39 +82,40 @@ export function isChordPressed(
     if (hasTokenInChord(chord, Modifier.Alt) && event.altKey) {
       lookup = lookup & ~Modifier.Alt;
     } else if (event.altKey) {
-      return false;
+      continue;
     }
 
     if (hasTokenInChord(chord, Modifier.Cmd) && event.metaKey) {
       lookup = lookup & ~Modifier.Cmd;
     } else if (event.metaKey) {
-      return false;
+      continue;
     }
 
     if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
       lookup = lookup & ~Modifier.Ctrl;
     } else if (event.ctrlKey) {
-      return false;
+      continue;
     }
 
     if (hasTokenInChord(chord, Modifier.Shift) && event.shiftKey) {
       lookup = lookup & ~Modifier.Shift;
     } else if (event.shiftKey) {
-      return false;
+      continue;
     }
 
     if (lookup === 0) {
-      return true;
+      matchCount++;
+      continue;
     }
 
     if ("key" in event) {
       const key = getKeyForLookup(event.key);
 
       if (key === eventKeyByKeyEnumTable.get(lookup)) {
-        return true;
+        matchCount++;
       }
     }
   }
 
-  return false;
+  return matchCount > 0;
 }

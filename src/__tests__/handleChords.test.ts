@@ -1,14 +1,15 @@
-import { handleChord, handleChords } from "../handlers.ts";
+import { handleChords } from "../handleChords.ts";
+import { isPrintableCharPressed } from "../printableChars.ts";
 import { Key, Modifier } from "../types.ts";
 
-describe("within handlers", () => {
-  describe("the handleChord function", () => {
+describe("the handleChords function", () => {
+  describe("when using the match and listener arguments", () => {
     it("only fires the handler when a single chord is pressed", () => {
       const handlerFired = vi.fn();
 
       const event = new KeyboardEvent("keydown", { key: "c", altKey: true });
 
-      handleChord(event, Modifier.Alt | Key.LetterC, () => {
+      handleChords(event, Modifier.Alt | Key.LetterC, () => {
         handlerFired();
       });
 
@@ -16,7 +17,7 @@ describe("within handlers", () => {
     });
   });
 
-  describe("the handleChords function", () => {
+  describe("when using the builder function", () => {
     it("only fires the handler when the key chord is pressed", () => {
       const handlerFired = vi.fn();
       const handlerNotFired = vi.fn();
@@ -69,6 +70,24 @@ describe("within handlers", () => {
       expect(handlerFired).toHaveBeenCalledTimes(2);
       expect(handlerNotFired).not.toHaveBeenCalledTimes(1);
       expect(event.defaultPrevented).toBe(true);
+    });
+
+    it("handles when handlers", () => {
+      const handlerFired = vi.fn();
+
+      const event = new KeyboardEvent("keydown", { key: "a" });
+
+      handleChords(event, (handler) => {
+        handler
+          .when(isPrintableCharPressed, () => {
+            handlerFired();
+          })
+          .when(isPrintableCharPressed(event), () => {
+            handlerFired();
+          });
+      });
+
+      expect(handlerFired).toHaveBeenCalledTimes(2);
     });
   });
 });

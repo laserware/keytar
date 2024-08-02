@@ -226,4 +226,14 @@ describe("the isChordPressed function", () => {
       expect(result).toBe(true);
     });
   });
+
+  it("handles Shift and Shift + Tab", () => {
+    vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
+
+    const event = new KeyboardEvent("keydown", { key: "Tab", shiftKey: true });
+
+    const result = isChordPressed(event, Key.Tab, Modifier.Shift | Key.Tab);
+
+    expect(result).toBe(true);
+  });
 });
