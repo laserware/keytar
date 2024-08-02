@@ -1,15 +1,22 @@
+import type { ChordedEvent } from "./types.ts";
+
 /**
  * Returns true if a printable character key was pressed (excluding any
  * modifiers).
  *
  * @param event Keyboard event from an event listener.
  */
-export function isPrintableCharPressed(event: KeyboardEvent): boolean {
+export function isPrintableCharPressed(event: ChordedEvent): boolean {
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
     return false;
   }
 
-  return isPrintableChar(event.key);
+  if ("key" in event) {
+    return isPrintableChar(event.key);
+  } else {
+    // This is a mouse event.
+    return false;
+  }
 }
 
 /**
@@ -18,7 +25,7 @@ export function isPrintableCharPressed(event: KeyboardEvent): boolean {
  * @param key Key to check if printable.
  */
 export function isPrintableChar(key: string): boolean {
-  if (/[^a-z0-9]/gi.test(key)) {
+  if (/[a-z0-9]/gi.test(key)) {
     return true;
   }
 
