@@ -19,7 +19,13 @@ describe("the getChordDisplay function", () => {
   });
 
   it("returns the chord display for a keyboard event", () => {
-    const event = new KeyboardEvent("keydown", { key: "ArrowDown", altKey: true });
+    const event = new KeyboardEvent("keydown", {
+      key: "ArrowDown",
+      altKey: true,
+      ctrlKey: false,
+      metaKey: false,
+      shiftKey: false,
+    });
 
     const result = getChordDisplay(event);
 
@@ -31,8 +37,8 @@ describe("the getChordDisplay function", () => {
       buttons: EventButton.Left,
       altKey: true,
       ctrlKey: true,
-      shiftKey: true,
       metaKey: true,
+      shiftKey: true,
     });
 
     const result = getChordDisplay(event);
