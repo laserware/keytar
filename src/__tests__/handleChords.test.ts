@@ -7,7 +7,13 @@ describe("the handleChords function", () => {
     it("only fires the handler when a single chord is pressed", () => {
       const handlerFired = vi.fn();
 
-      const event = new KeyboardEvent("keydown", { key: "c", altKey: true });
+      const event = new KeyboardEvent("keydown", {
+        key: "c",
+        altKey: true,
+        ctrlKey: false,
+        metaKey: false,
+        shiftKey: false,
+      });
 
       handleChords(event, Modifier.Alt | Key.LetterC, () => {
         handlerFired();
@@ -22,7 +28,14 @@ describe("the handleChords function", () => {
       const handlerFired = vi.fn();
       const handlerNotFired = vi.fn();
 
-      const event = new KeyboardEvent("keydown", { key: "c", altKey: true, cancelable: true });
+      const event = new KeyboardEvent("keydown", {
+        key: "c",
+        altKey: true,
+        ctrlKey: false,
+        metaKey: false,
+        shiftKey: false,
+        cancelable: true,
+      });
 
       handleChords(event, (handler) => {
         handler
@@ -50,6 +63,9 @@ describe("the handleChords function", () => {
       const event = new KeyboardEvent("keydown", {
         key: "ArrowDown",
         altKey: true,
+        ctrlKey: false,
+        metaKey: false,
+        shiftKey: false,
         cancelable: true,
       });
 
@@ -75,7 +91,13 @@ describe("the handleChords function", () => {
     it("handles when handlers", () => {
       const handlerFired = vi.fn();
 
-      const event = new KeyboardEvent("keydown", { key: "a" });
+      const event = new KeyboardEvent("keydown", {
+        key: "a",
+        altKey: false,
+        ctrlKey: false,
+        metaKey: false,
+        shiftKey: false,
+      });
 
       handleChords(event, (handler) => {
         handler

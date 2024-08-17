@@ -29,30 +29,39 @@ export function isChordPressed(
     if ("buttons" in event) {
       const button = event.buttons as EventButton;
 
-      if (button === EventButton.Left) {
-        lookup = stripToken(lookup, MouseButton.Left);
-      }
-
-      if (button === EventButton.Right) {
-        lookup = stripToken(lookup, MouseButton.Right);
-      }
-
-      if (button === EventButton.Auxiliary) {
-        lookup = stripToken(lookup, MouseButton.Auxiliary);
+      if (button === EventButton.BrowserForward) {
+        lookup = stripToken(lookup, MouseButton.BrowserForward);
       }
 
       if (button === EventButton.BrowserBack) {
         lookup = stripToken(lookup, MouseButton.BrowserBack);
       }
 
-      if (button === EventButton.BrowserForward) {
-        lookup = stripToken(lookup, MouseButton.BrowserForward);
+      if (button === EventButton.Auxiliary) {
+        lookup = stripToken(lookup, MouseButton.Auxiliary);
+      }
+
+      if (button === EventButton.Right) {
+        lookup = stripToken(lookup, MouseButton.Right);
+      }
+
+      if (button === EventButton.Left) {
+        lookup = stripToken(lookup, MouseButton.Left);
       }
 
       if (lookup === 0) {
         matchCount++;
         continue;
       }
+    }
+
+    // Note that the order of the chord checks for modifiers is important.
+    // We start with the highest bit flag and work down to the lowest one.
+    // If we didn't do this, we might get an invalid combination of chords.
+    if (hasTokenInChord(chord, Modifier.Shift) && event.shiftKey) {
+      lookup = lookup & ~Modifier.Shift;
+    } else if (event.shiftKey) {
+      continue;
     }
 
     /*
@@ -79,9 +88,9 @@ export function isChordPressed(
       }
     }
 
-    if (hasTokenInChord(chord, Modifier.Alt) && event.altKey) {
-      lookup = lookup & ~Modifier.Alt;
-    } else if (event.altKey) {
+    if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
+      lookup = lookup & ~Modifier.Ctrl;
+    } else if (event.ctrlKey) {
       continue;
     }
 
@@ -91,15 +100,9 @@ export function isChordPressed(
       continue;
     }
 
-    if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
-      lookup = lookup & ~Modifier.Ctrl;
-    } else if (event.ctrlKey) {
-      continue;
-    }
-
-    if (hasTokenInChord(chord, Modifier.Shift) && event.shiftKey) {
-      lookup = lookup & ~Modifier.Shift;
-    } else if (event.shiftKey) {
+    if (hasTokenInChord(chord, Modifier.Alt) && event.altKey) {
+      lookup = lookup & ~Modifier.Alt;
+    } else if (event.altKey) {
       continue;
     }
 
