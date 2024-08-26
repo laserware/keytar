@@ -1,10 +1,8 @@
-import { cachePlatform, Platform } from "@laserware/arcade";
+import { isPlatform } from "@laserware/arcade";
 
 import { codeByKeyTable } from "./codeByKeyTable.js";
 import type { Key } from "./types.js";
 import { Modifier } from "./types.js";
-
-const platform = cachePlatform();
 
 /**
  * Returns the platform-dependent display value for the specified modifier.
@@ -12,16 +10,16 @@ const platform = cachePlatform();
 export function getDisplayValueForModifier(modifier: Modifier): string {
   switch (modifier) {
     case Modifier.Cmd:
-      return platform === Platform.Mac ? "⌘" : "Meta";
+      return isPlatform("mac") ? "⌘" : "Meta";
 
     case Modifier.Ctrl:
-      return platform === Platform.Mac ? "⌃" : "Ctrl";
+      return isPlatform("mac") ? "⌃" : "Ctrl";
 
     case Modifier.CmdOrCtrl:
-      return platform === Platform.Mac ? "⌘" : "Ctrl";
+      return isPlatform("mac") ? "⌘" : "Ctrl";
 
     case Modifier.Alt:
-      return platform === Platform.Mac ? "⌥" : "Alt";
+      return isPlatform("mac") ? "⌥" : "Alt";
 
     case Modifier.Shift:
       return "Shift";

@@ -1,9 +1,7 @@
-import { cachePlatform, Platform } from "@laserware/arcade";
+import { isPlatform } from "@laserware/arcade";
 
 import { codeByKeyTable } from "./codeByKeyTable.js";
 import { Key, Modifier } from "./types.js";
-
-const platform = cachePlatform();
 
 /**
  * Returns true if the specified single combination is pressed based on the
@@ -26,7 +24,7 @@ export function isKeyComboDown(
    * `Modifier.Ctrl` was pressed.
    */
   if ((combo & Modifier.CmdOrCtrl) === Modifier.CmdOrCtrl) {
-    if (platform === Platform.Mac) {
+    if (isPlatform("mac")) {
       if (event.metaKey) {
         keyCode = keyCode & ~Modifier.Ctrl;
       } else {
