@@ -145,7 +145,7 @@ function eventToTokens(event: ChordedEvent): TokenSet {
   }
 
   if ("key" in event) {
-    const key = getKeyForLookup(event.key);
+    const key = getKeyForLookup(event);
 
     const keyEnum = keyEnumByEventKeyTable.get(key);
 

@@ -25,15 +25,21 @@ export function hasTokenInChord(chord: Chord, token: Token): boolean {
 }
 
 /**
- * Returns the specified key as a valid value for the lookup table.
+ * Returns a valid key that can be used to lookup the corresponding enum value
+ * in the lookup table.
  *
- * @param key Key to convert to lookup key.
+ * @param event KeyboardEvent to extrapolate key from.
  */
-export function getKeyForLookup(key: string): string {
+export function getKeyForLookup(event: KeyboardEvent): string {
   // Only convert single letters to upper case:
-  if (key.length === 1 && /[a-z]/i.test(key)) {
-    return key.toUpperCase();
+  if (event.key.length === 1 && /[a-z]/i.test(event.key)) {
+    return event.key.toUpperCase();
+  } else if (event.code.startsWith("Key")) {
+    // On macOS, if the user presses the Option key + a letter, the `event.key`
+    // field could be `Unidentified`. We want to be able to use Option + letter
+    // as a keyboard shortcut, so we grab the letter key from the `code` instead:
+    return event.code.at(-1) ?? "";
   } else {
-    return key;
+    return event.key;
   }
 }

@@ -39,6 +39,11 @@ describe("the isChordPressed function", () => {
         chord: Modifier.Alt | Modifier.Cmd | Modifier.Ctrl | Modifier.Shift | Key.LetterB,
         display: getChordDisplay(Modifier.Alt | Modifier.Cmd | Modifier.Ctrl | Modifier.Shift | Key.LetterB),
       },
+      {
+        event: new KeyboardEvent("keydown", { key: "Unidentified", code: "KeyA", altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
+        chord: Modifier.Alt | Modifier.Shift | Key.LetterA,
+        display: getChordDisplay(Modifier.Alt | Modifier.Shift | Key.LetterA),
+      },
     ])("when $display is pressed and event matches", async ({ event, chord }) => {
       vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
 
