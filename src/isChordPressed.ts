@@ -112,7 +112,7 @@ export function isChordPressed(
     }
 
     if ("key" in event) {
-      const key = getKeyForLookup(event.key);
+      const key = getKeyForLookup(event);
 
       if (key === eventKeyByKeyEnumTable.get(lookup)) {
         matchCount++;
