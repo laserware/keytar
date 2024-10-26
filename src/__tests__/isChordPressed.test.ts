@@ -49,7 +49,7 @@ describe("the isChordPressed function", () => {
 
       const result = isChordPressed(event, chord);
 
-      expect(result).toBe(true);
+      expect(result).toBeTruthy();
     });
   });
 
@@ -86,7 +86,7 @@ describe("the isChordPressed function", () => {
 
       const result = isChordPressed(event, chord);
 
-      expect(result).toBe(false);
+      expect(result).toBeFalsy();
     });
   });
 
@@ -192,7 +192,7 @@ describe("the isChordPressed function", () => {
 
     const result = isChordPressed(event, Modifier.Ctrl | Modifier.Alt | Modifier.Shift);
 
-    expect(result).toBe(true);
+    expect(result).toBeTruthy();
   });
 
   it("returns true if mouse buttons are specified and are clicked", () => {
@@ -203,7 +203,7 @@ describe("the isChordPressed function", () => {
 
     const result = isChordPressed(event, Modifier.Alt | MouseButton.Left);
 
-    expect(result).toBe(true);
+    expect(result).toBeTruthy();
   });
 
   describe("when checking for CmdOrCtrl", () => {
@@ -215,7 +215,7 @@ describe("the isChordPressed function", () => {
 
       const result = isChordPressed(event, Modifier.CmdOrCtrl | Modifier.Ctrl);
 
-      expect(result).toBe(true);
+      expect(result).toBeTruthy();
     });
 
     it("clears the Ctrl key on Windows/Linux", () => {
@@ -226,7 +226,7 @@ describe("the isChordPressed function", () => {
 
       const result = isChordPressed(event, Modifier.CmdOrCtrl);
 
-      expect(result).toBe(true);
+      expect(result).toBeTruthy();
     });
   });
 
@@ -238,6 +238,6 @@ describe("the isChordPressed function", () => {
 
     const result = isChordPressed(event, Key.Tab, Modifier.Shift | Key.Tab);
 
-    expect(result).toBe(true);
+    expect(result).toBeTruthy();
   });
 });

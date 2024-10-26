@@ -1,7 +1,7 @@
 export { getChordDisplay } from "./getChordDisplay.ts";
 export { handleChords } from "./handleChords.ts";
 export { isChordPressed } from "./isChordPressed.ts";
-export { isPrintableCharPressed, isPrintableChar } from "./printableChars.ts";
+export { isPrintableChar, isPrintableCharPressed } from "./printableChars.ts";
 export {
   Key,
   Modifier,

@@ -53,7 +53,7 @@ describe("the handleChords function", () => {
 
       expect(handlerFired).toHaveBeenCalledTimes(2);
       expect(handlerNotFired).not.toHaveBeenCalledTimes(1);
-      expect(event.defaultPrevented).toBe(true);
+      expect(event.defaultPrevented).toBeTruthy();
     });
 
     it("handles arrow keys", () => {
@@ -85,7 +85,7 @@ describe("the handleChords function", () => {
 
       expect(handlerFired).toHaveBeenCalledTimes(2);
       expect(handlerNotFired).not.toHaveBeenCalledTimes(1);
-      expect(event.defaultPrevented).toBe(true);
+      expect(event.defaultPrevented).toBeTruthy();
     });
 
     it("handles when handlers", () => {
