@@ -1,0 +1,32 @@
+name: Validate
+on: [push]
+env:
+  CI: true
+
+jobs:
+  check:
+    name: Run Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: ESLint
+        run: npm run eslint
+
+      - name: Check Formatting
+        run: npm run prettier:ci
+
+      - name: Check Types
+        run: npm run typecheck
+
+      - name: Run Tests
+        run: npm run vitest -- --run
