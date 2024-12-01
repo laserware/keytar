@@ -1,4 +1,4 @@
-# @laserware/keytar
+# Keytar
 
 Handle keyboard and mouse events in the browser.
 Check out the [documentation](https://laserware.github.io/keytar/) for the API.
