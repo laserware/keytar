@@ -1,10 +1,16 @@
 import type { ChordedEvent } from "./types.ts";
 
 /**
- * Returns true if a printable character key was pressed (excluding any
- * modifiers).
+ * Checks if a printable character key was pressed (excluding any modifiers).
  *
- * @param event Keyboard event from an event listener.
+ * A printable character meets one of the following criteria:
+ * - It is an uppercase or lowercase letter.
+ * - It is a number.
+ * - It is the `Backspace` or `Delete` key.
+ *
+ * @param event KeyboardEvent from an event listener.
+ *
+ * @returns `true` if the printable characters were pressed from the specified `event`.
  */
 export function isPrintableCharPressed(event: ChordedEvent): boolean {
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
@@ -20,12 +26,19 @@ export function isPrintableCharPressed(event: ChordedEvent): boolean {
 }
 
 /**
- * Returns true if the specified key represents a printable character.
+ * Checks if the specified key represents a printable character.
+ *
+ * A printable character meets one of the following criteria:
+ * - It is an uppercase or lowercase letter.
+ * - It is a number.
+ * - It is the `Backspace` or `Delete` key.
  *
  * @param key Key to check if printable.
+ *
+ * @returns `true` if the specified `key` is a printable character.
  */
 export function isPrintableChar(key: string): boolean {
-  if (/[a-z0-9]/gi.test(key)) {
+  if (/[a-z0-9]/gi.test(key) && key.length === 1) {
     return true;
   }
 

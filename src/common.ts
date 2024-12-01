@@ -1,10 +1,14 @@
 import type { Chord, Token } from "./types.ts";
 
 /**
- * Strips the {@link Token} from the specified {@link Chord} and returns the result.
+ * Strips the specified `token` from the specified `chord`.
  *
- * @param chord Combination of {@link Token} elements to strip token from.
+ * @internal
+ *
+ * @param chord Combination of {@linkcode Token} elements to strip token from.
  * @param token Token to remove from chord.
+ *
+ * @returns The chord with the specified `token` removed.
  */
 export function stripToken(chord: Chord, token: Token): number {
   if (hasTokenInChord(chord, token)) {
@@ -15,20 +19,28 @@ export function stripToken(chord: Chord, token: Token): number {
 }
 
 /**
- * Returns true if the specified {@link Chord} includes the specified {@link Token}.
+ * Returns true if the specified `chord` includes the specified `token`.
  *
- * @param chord Combination of {@link Token} elements to check against.
+ * @internal
+ *
+ * @param chord Combination of tokens to check against.
  * @param token Token to check for in chord.
+ *
+ * @returns `true` if the specified `token` is present in the `chord`.
  */
 export function hasTokenInChord(chord: Chord, token: Token): boolean {
   return (chord & token) === token;
 }
 
 /**
- * Returns a valid key that can be used to lookup the corresponding enum value
+ * Returns a valid key that can be used to look up the corresponding enum value
  * in the lookup table.
  *
+ * @internal
+ *
  * @param event KeyboardEvent to extrapolate key from.
+ *
+ * @returns `key` property from the specified KeyboardEvent.
  */
 export function getKeyForLookup(event: KeyboardEvent): string {
   // Only convert single letters to upper case:

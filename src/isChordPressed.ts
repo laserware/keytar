@@ -11,11 +11,13 @@ import {
 } from "./types.ts";
 
 /**
- * Returns true if one of the specified {@link Chord} combinations are pressed
- * based on the specified keyboard or mouse event.
+ * Checks if one of the specified {@linkcode Chord} combinations were pressed
+ * based on the specified keyboard or mouse `event`.
  *
  * @param event Keyboard or mouse event from an event listener.
- * @param chords Combination of {@link Token} elements to check for from the event.
+ * @param chords Combination of {@linkcode Token} elements to check for from the event.
+ *
+ * @returns `true` if any of the specified `chords` were pressed.
  */
 export function isChordPressed(
   event: ChordedEvent,

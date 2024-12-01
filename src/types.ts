@@ -4,25 +4,25 @@ type KeyModifierStateFields = Pick<
 >;
 
 /**
- * Boolean flag field names from a KeyboardEvent instance used to indicate
- * which modifiers are down.
+ * Boolean flag field names from a [KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
+ * instance used to indicate which modifiers are down.
  */
 export type KeyModifierState = keyof KeyModifierStateFields;
 
 /**
- * An event from which a combination of {@link Token} elements can be extracted.
+ * An event from which a combination of {@linkcode Token} elements can be extracted.
  */
 export type ChordedEvent = KeyboardEvent | MouseEvent;
 
 /**
- * A {@link Key}, {@link Modifier}, or {@link MouseButton}. This represents a
+ * A {@linkcode Key}, {@linkcode Modifier}, or {@linkcode MouseButton}. This represents a
  * single element in a chord.
  */
 export type Token = Key | Modifier | MouseButton;
 
 /**
- * A single {@link Token} or a combination of Tokens which are joined via a
- * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR|bitwise OR (|) operator}.
+ * A single {@linkcode Token} or a combination of Tokens which are joined via a
+ * [bitwise OR (|) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR).
  *
  * @example
  * const single = Key.LetterC;
@@ -120,10 +120,10 @@ export enum Key {
 
 /**
  * These are taken directly from the actual value from the event. We're using
- * the bit-shifted representation to stay consistent with {@link Modifier}.
+ * the bit-shifted representation to stay consistent with {@linkcode Modifier}.
  *
- * See the {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons|buttons} documentation
- * on MDN for additional details.
+ * See the [buttons](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
+ * documentation on MDN for additional details.
  */
 export enum EventButton {
   /* 0  */ None = 0,
@@ -147,9 +147,9 @@ export enum Modifier {
 
 /**
  * Represents mouse buttons that could be pressed. These do not match the mouse
- * buttons from the MouseEvent (which are much lower). This is so we can check
- * for a combination of keyboard modifiers and mouse buttons
- * (e.g. Shift + Left Click).
+ * buttons from the [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) (which are much lower).
+ * This is so we can check for a combination of keyboard modifiers and mouse
+ * buttons (e.g. `Shift` + Left Click).
  */
 export enum MouseButton {
   /* 4096   */ None = 0,

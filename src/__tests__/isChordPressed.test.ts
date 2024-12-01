@@ -11,7 +11,7 @@ describe("the isChordPressed function", () => {
     vi.resetAllMocks();
   });
 
-  describe("returns true if requirements are met", () => {
+  describe("returns true if requirements are met for keyboard events", () => {
     // prettier-ignore
     it.concurrent.each([
       {
@@ -53,7 +53,7 @@ describe("the isChordPressed function", () => {
     });
   });
 
-  describe("returns false if requirements are not met", () => {
+  describe("returns false if requirements are not met for keyboard events", () => {
     // prettier-ignore
     it.concurrent.each([
       {
@@ -239,5 +239,47 @@ describe("the isChordPressed function", () => {
     const result = isChordPressed(event, Key.Tab, Modifier.Shift | Key.Tab);
 
     expect(result).toBeTruthy();
+  });
+
+  describe("returns true if requirements are met for mouse events", () => {
+    // prettier-ignore
+    it.concurrent.each([
+      {
+        event: new MouseEvent("keydown", { buttons: EventButton.Left, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),
+        chord: MouseButton.Left,
+        display: getChordDisplay(MouseButton.Left),
+      },
+      {
+        event: new MouseEvent("keydown", { buttons: EventButton.Right, altKey: true, ctrlKey: false, metaKey: false, shiftKey: false }),
+        chord: Modifier.Alt | MouseButton.Right,
+        display: getChordDisplay(Modifier.Alt | MouseButton.Right),
+      },
+      {
+        event: new MouseEvent("keydown", { buttons: EventButton.Auxiliary, altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
+        chord: Modifier.Alt | Modifier.Shift | MouseButton.Auxiliary,
+        display: getChordDisplay(Modifier.Alt | Modifier.Shift | MouseButton.Auxiliary),
+      },
+      {
+        event: new MouseEvent("keydown", { buttons: EventButton.BrowserBack, altKey: true, ctrlKey: true, metaKey: false, shiftKey: true }),
+        chord: Modifier.Alt | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserBack,
+        display: getChordDisplay(Modifier.Alt | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserBack),
+      },
+      {
+        event: new MouseEvent("keydown", { buttons: EventButton.BrowserForward, altKey: true, ctrlKey: true, metaKey: true, shiftKey: true }),
+        chord: Modifier.Alt | Modifier.Cmd | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserForward,
+        display: getChordDisplay(Modifier.Alt | Modifier.Cmd | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserForward),
+      },
+      {
+        event: new MouseEvent("keydown", { buttons: EventButton.None, altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
+        chord: Modifier.Alt | Modifier.Shift | MouseButton.None,
+        display: getChordDisplay(Modifier.Alt | Modifier.Shift | MouseButton.None),
+      },
+    ])("when $display is pressed and event matches", async ({ event, chord }) => {
+      vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
+
+      const result = isChordPressed(event, chord);
+
+      expect(result).toBeTruthy();
+    });
   });
 });

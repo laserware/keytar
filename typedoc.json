@@ -1,0 +1,19 @@
+{
+  "cleanOutputDir": true,
+  "entryPoints": ["./src/index.ts"],
+  "exclude": ["**/**test.ts"],
+  "excludeInternal": true,
+  "excludeNotDocumented": true,
+  "headings": { "readme": false, "document": false },
+  "hideGenerator": true,
+  "navigation": {
+    "compactFolders": true,
+    "excludeReferences": true,
+    "includeCategories": true,
+    "includeFolders": true,
+    "includeGroups": false
+  },
+  "navigationLinks": { "GitHub": "https://github.com/laserware/keytar" },
+  "out": "site",
+  "readme": "./README.md"
+}

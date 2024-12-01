@@ -3,21 +3,32 @@ import type { ChordedEvent } from "./types.ts";
 
 /**
  * Listener fired when a matching chord is found.
+ *
+ * @template E Keyboard or mouse event.
  */
-type ChordMatchListener<E extends ChordedEvent> = (event: E) => void;
+export type ChordMatchListener<E extends ChordedEvent> = (event: E) => void;
 
 /**
  * Input for chords, can be a single chord combination or an array of chord
  * combinations.
  */
-type ChordInput = number | number[];
+export type ChordInput = number | number[];
 
-type Condition<E extends ChordedEvent> = ((event: E) => boolean) | boolean;
+/**
+ * Condition passed to {@linkcode ChordHandler.when}.
+ *
+ * @template E Keyboard or mouse event.
+ */
+export type WhenCondition<E extends ChordedEvent> =
+  | ((event: E) => boolean)
+  | boolean;
 
 /**
  * Object with handlers that get fired based on the conditional checks.
+ *
+ * @template E Keyboard or mouse event.
  */
-interface ChordHandler<E extends ChordedEvent> {
+export interface ChordHandler<E extends ChordedEvent> {
   /**
    * Fired when the specified chord or array of chords is pressed.
    *
@@ -34,18 +45,23 @@ interface ChordHandler<E extends ChordedEvent> {
    * @param listener Callback to fire if the condition is true.
    */
   when(
-    condition: Condition<E>,
+    condition: WhenCondition<E>,
     listener: ChordMatchListener<E>,
   ): ChordHandler<E>;
 }
 
-type ChordHandlerBuilder<E extends ChordedEvent> = (
+/**
+ * Builder function for a {@linkcode ChordHandler}.
+ *
+ * @template E Keyboard or mouse event.
+ */
+export type ChordHandlerBuilder<E extends ChordedEvent> = (
   handler: ChordHandler<E>,
 ) => void;
 
 /**
- * Fires the specified listener if the specified combination of {@link Token}
- * elements were pressed/clicked from the specified event.
+ * Fires the specified `listener` if the specified combination of `chords`
+ * were pressed/clicked from the specified `event`.
  *
  * @template E Keyboard or mouse event.
  *
@@ -54,22 +70,29 @@ type ChordHandlerBuilder<E extends ChordedEvent> = (
  *               elements that meet the conditions in the specified event.
  * @param listener Callback to fire if a chord match is found.
  *
- * @example Single Chord Input
- *  function handleKeyDown(event: KeyboardEvent): void {
- *    handleChords(event, Modifier.Alt | Key.LetterC, () => {
- *      // Fired only when Alt + C is pressed.
- *    });
- *  }
+ * @example
+ * **Single Chord Input**
  *
- * @example Multiple Chord Input
- *  function handleKeyDown(event: KeyboardEvent): void {
- *    handleChords(event, [Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
- *      // Fired when Alt + C or the letter C is pressed.
+ * ```ts
+ * function handleKeyDown(event: KeyboardEvent): void {
+ *   handleChords(event, Modifier.Alt | Key.LetterC, () => {
+ *     // Fired only when Alt + C is pressed.
+ *   });
+ * }
+ * ```
  *
- *      // Event can be accessed from the listener if needed:
- *      event.preventDefault();
- *    });
- *  }
+ * **Multiple Chord Input**
+ *
+ * ```ts
+ * function handleKeyDown(event: KeyboardEvent): void {
+ *   handleChords(event, [Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
+ *     // Fired when Alt + C or the letter C is pressed.
+ *
+ *     // Event can be accessed from the listener if needed:
+ *     event.preventDefault();
+ *   });
+ * }
+ * ```
  */
 export function handleChords<E extends ChordedEvent>(
   event: E,
@@ -88,31 +111,31 @@ export function handleChords<E extends ChordedEvent>(
  *                buttons.
  *
  * @example
- *  function handleKeyDown(event: KeyboardEvent): void {
- *    handleChords(event, (handler) => {
- *      handler
- *        .on(Modifier.Alt | Key.LetterC, () => {
- *          // Fired only when Alt + C is pressed.
- *        })
- *        .on(Key.LetterC, () => {
- *          // Fired only when C is pressed (without modifiers).
- *        })
- *        .on([Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
- *          // Fired when Alt + C _or_ C is pressed.
+ * function handleKeyDown(event: KeyboardEvent): void {
+ *   handleChords(event, (handler) => {
+ *     handler
+ *       .on(Modifier.Alt | Key.LetterC, () => {
+ *         // Fired only when Alt + C is pressed.
+ *       })
+ *       .on(Key.LetterC, () => {
+ *         // Fired only when C is pressed (without modifiers).
+ *       })
+ *       .on([Modifier.Alt | Key.LetterC, Key.LetterC], (event) => {
+ *         // Fired when Alt + C _or_ C is pressed.
  *
- *          // Event can be accessed from the listener if needed:
- *          event.preventDefault();
- *        })
- *        // Passing in a function that takes an Event as its first argument:
- *        .when(isPrintableCharPressed, () => {
- *          // A letter or number was pressed.
- *        })
- *        // Passing in a boolean:
- *        .when(isPrintableCharPressed(event), () => {
- *          // A letter or number was pressed.
- *        })
- *     });
- *  }
+ *         // Event can be accessed from the listener if needed:
+ *         event.preventDefault();
+ *       })
+ *       // Passing in a function that takes an Event as its first argument:
+ *       .when(isPrintableCharPressed, () => {
+ *         // A letter or number was pressed.
+ *       })
+ *       // Passing in a boolean:
+ *       .when(isPrintableCharPressed(event), () => {
+ *         // A letter or number was pressed.
+ *       })
+ *    });
+ * }
  */
 export function handleChords<E extends ChordedEvent>(
   event: E,
@@ -139,7 +162,7 @@ export function handleChords<E extends ChordedEvent>(
 
       return handler;
     },
-    when(condition: Condition<E>, listener: ChordMatchListener<E>): ChordHandler<E> {
+    when(condition: WhenCondition<E>, listener: ChordMatchListener<E>): ChordHandler<E> {
       const result = typeof condition === "function" ? condition(event) : condition;
 
       if (result) {

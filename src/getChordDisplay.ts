@@ -19,26 +19,33 @@ import {
 type TokenSet = Set<Token>;
 
 /**
- * Returns the display value for the specified {@link Chord}. If the Chord is a combination
+ * Gets the display value for the specified `chord`. If the chord is a combination
  * of multiple keys/buttons, the display value for each key/button is joined with
- * the specified join symbol.
+ * the specified `joinSymbol`.
  *
- * @param chord Combination of {@link Token} elements to get display value for.
+ * @param chord Combination of {@linkcode Token} elements to get display value for.
  * @param [joinSymbol=" + "] Symbol to join chord display values.
+ *
+ * @returns The display value extracted from the specified `chord`.
  */
 export function getChordDisplay(chord: Chord, joinSymbol?: string): string;
+
 /**
- * Returns the display value for the {@link Chord} derived from the specified keyboard or
- * mouse event. If the Chord is a combination of multiple keys/buttons, the
- * display value for each key/button is joined with the specified join symbol.
+ * Gets the display value for the {@linkcode Chord} derived from the specified
+ * keyboard or mouse `event`. If the chord is a combination of multiple
+ * keys/buttons, the display value for each key/button is joined with the
+ * specified `joinSymbol`.
  *
  * @param event Keyboard or mouse event to get chord display for.
  * @param [joinSymbol=" + "] Symbol to join chord display values.
+ *
+ * @returns The display value for the chords extracted from the specified `event`.
  */
 export function getChordDisplay(
   event: ChordedEvent,
   joinSymbol?: string,
 ): string;
+
 export function getChordDisplay(
   chordOrEvent: Chord | ChordedEvent,
   joinSymbol: string = " + ",
@@ -81,9 +88,11 @@ export function getChordDisplay(
 }
 
 /**
- * Returns a Set with the {@link Token} elements extracted from the specified {@link Chord}.
+ * Creates a Set with the {@linkcode Token} elements extracted from the specified `chord`.
  *
- * @param chord Combination of {@link Token} elements to extra into individual tokens.
+ * @param chord Combination of {@linkcode Token} elements to extra into individual tokens.
+ *
+ * @returns A Set of unique tokens extracted from the specified `chord`.
  */
 function chordToTokens(chord: Chord): TokenSet {
   const tokens = new Set<Token>();
@@ -121,10 +130,12 @@ function chordToTokens(chord: Chord): TokenSet {
 }
 
 /**
- * Returns a Set with the tokens extracted from the specified keyboard or mouse
- * event.
+ * Creates a Set with the tokens extracted from the specified keyboard or mouse
+ * `event`.
  *
  * @param event Keyboard or mouse event to extract tokens from.
+ *
+ * @returns A Set of unique tokens extracted from the specified `chord`.
  */
 function eventToTokens(event: ChordedEvent): TokenSet {
   const tokens = new Set<Token>();
