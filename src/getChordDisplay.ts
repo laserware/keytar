@@ -90,6 +90,8 @@ export function getChordDisplay(
 /**
  * Creates a Set with the {@linkcode Token} elements extracted from the specified `chord`.
  *
+ * @internal
+ *
  * @param chord Combination of {@linkcode Token} elements to extra into individual tokens.
  *
  * @returns A Set of unique tokens extracted from the specified `chord`.
@@ -132,6 +134,8 @@ function chordToTokens(chord: Chord): TokenSet {
 /**
  * Creates a Set with the tokens extracted from the specified keyboard or mouse
  * `event`.
+ *
+ * @internal
  *
  * @param event Keyboard or mouse event to extract tokens from.
  *

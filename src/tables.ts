@@ -9,6 +9,12 @@ import {
   type KeyModifierState,
 } from "./types.ts";
 
+/**
+ * Table for looking up the {@linkcode Modifier} that corresponds to a modifier
+ * event property (e.g. `event.altKey`).
+ *
+ * @internal
+ */
 export const modifierByModifierStatusTable = new Map<
   KeyModifierState,
   Modifier
@@ -19,6 +25,14 @@ export const modifierByModifierStatusTable = new Map<
   ["shiftKey", Modifier.Shift],
 ]);
 
+/**
+ * Table for looking up the {@linkcode MouseButton} that corresponds to the
+ * [`event.buttons` property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
+ * on a [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent)
+ * (represented by {@linkcode EventButton}).
+ *
+ * @internal
+ */
 export const mouseButtonByEventButtonTable = new Map<EventButton, MouseButton>([
   [EventButton.None, MouseButton.None],
   [EventButton.Left, MouseButton.Left],
@@ -28,6 +42,12 @@ export const mouseButtonByEventButtonTable = new Map<EventButton, MouseButton>([
   [EventButton.BrowserForward, MouseButton.BrowserForward],
 ]);
 
+/**
+ * Table for looking up the [`event.key` property](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+ * value that corresponds to a {@linkcode Key} value.
+ *
+ * @internal
+ */
 export const eventKeyByKeyEnumTable = new Map<Key, string>([
   [Key.Backspace, "Backspace"],
   [Key.Tab, "Tab"],
@@ -111,6 +131,13 @@ export const eventKeyByKeyEnumTable = new Map<Key, string>([
   [Key.Quote, `"`],
 ]);
 
+/**
+ * Table for looking up the {@linkcode Key} value that corresponds to the
+ * [`event.key` property](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+ * value.
+ *
+ * @internal
+ */
 export const keyEnumByEventKeyTable = new Map<string, Key>([
   ["Backspace", Key.Backspace],
   ["Tab", Key.Tab],
@@ -194,6 +221,11 @@ export const keyEnumByEventKeyTable = new Map<string, Key>([
   [`"`, Key.Quote],
 ]);
 
+/**
+ * Table for looking up the display values that correspond to a {@linkcode Chord}.
+ *
+ * @internal
+ */
 export const tokensDisplayTable = new Map<Chord, string>([
   [MouseButton.Auxiliary, "Middle Click"],
   [MouseButton.BrowserBack, "Back Click"],

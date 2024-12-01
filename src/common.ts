@@ -19,7 +19,7 @@ export function stripToken(chord: Chord, token: Token): number {
 }
 
 /**
- * Returns true if the specified `chord` includes the specified `token`.
+ * Checks if the specified `chord` includes the specified `token`.
  *
  * @internal
  *
@@ -33,8 +33,8 @@ export function hasTokenInChord(chord: Chord, token: Token): boolean {
 }
 
 /**
- * Returns a valid key that can be used to look up the corresponding enum value
- * in the lookup table.
+ * Tries to find a valid key that can be used to look up the corresponding enum
+ * value in the lookup table.
  *
  * @internal
  *

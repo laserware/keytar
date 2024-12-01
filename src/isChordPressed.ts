@@ -11,8 +11,8 @@ import {
 } from "./types.ts";
 
 /**
- * Checks if one of the specified {@linkcode Chord} combinations were pressed
- * based on the specified keyboard or mouse `event`.
+ * Checks if one of the specified `chords` combinations were pressed based on
+ * the specified keyboard or mouse `event`.
  *
  * @param event Keyboard or mouse event from an event listener.
  * @param chords Combination of {@linkcode Token} elements to check for from the event.

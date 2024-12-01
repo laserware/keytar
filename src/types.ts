@@ -26,6 +26,7 @@ export type Token = Key | Modifier | MouseButton;
  *
  * @example
  * const single = Key.LetterC;
+ *
  * const combination = Modifier.Alt | Key.Number2;
  */
 export type Chord = Token | number;

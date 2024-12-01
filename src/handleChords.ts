@@ -32,7 +32,7 @@ export interface ChordHandler<E extends ChordedEvent> {
   /**
    * Fired when the specified chord or array of chords is pressed.
    *
-   * @param chords Single chord or array of chords that represent a combination of {@link Token}
+   * @param chords Single chord or array of chords that represent a combination of {@linkcode Token}
    *               elements that meet the conditions in the specified event.
    * @param listener Callback to fire if a chord match is found.
    */
@@ -66,7 +66,7 @@ export type ChordHandlerBuilder<E extends ChordedEvent> = (
  * @template E Keyboard or mouse event.
  *
  * @param event Keyboard or mouse event from an event listener.
- * @param chords Single chord or array of chords that represent a combination of {@link Token}
+ * @param chords Single chord or array of chords that represent a combination of {@linkcode Token}
  *               elements that meet the conditions in the specified event.
  * @param listener Callback to fire if a chord match is found.
  *
@@ -101,8 +101,9 @@ export function handleChords<E extends ChordedEvent>(
 ): void;
 
 /**
- * Fires the handlers that map to the specified combination of {@link Token} elements
- * or conditions for the specified keyboard or mouse event.
+ * Fires the handlers that map to the specified `builder` describing the
+ * combinations of {@linkcode Token} elements or conditions for the
+ * specified keyboard or mouse `event`.
  *
  * @template E Keyboard or mouse event.
  *
