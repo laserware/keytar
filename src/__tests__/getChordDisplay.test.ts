@@ -1,5 +1,5 @@
 import { getChordDisplay } from "../getChordDisplay.ts";
-import { EventButton, Key, Modifier, MouseButton } from "../types.ts";
+import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
 
 vi.mock("@laserware/arcade", async (importActual) => {
   const mod = await importActual();
@@ -34,7 +34,7 @@ describe("the getChordDisplay function", () => {
 
   it("returns the chord display for a mouse event", () => {
     const event = new MouseEvent("mousedown", {
-      buttons: EventButton.Left,
+      buttons: MouseEventButton.Left,
       altKey: true,
       ctrlKey: true,
       metaKey: true,

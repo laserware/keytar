@@ -1,6 +1,6 @@
 # Keytar
 
-Handle keyboard and mouse events in the browser.
+Handle keyboard and mouse events using bitflags.
 Check out the [documentation](https://laserware.github.io/keytar/) for the API.
 
 ## Overview
@@ -50,3 +50,13 @@ function handleKeyDown(event: KeyboardEvent): void {
   });
 }
 ```
+
+## Glossary
+
+The following terms are used throughout the codebase to describe operations that can be performed with either the keyboard or mouse.
+
+- A `Key` is any non-modifier keyboard key (e.g. the letter `a` or the `Delete` key).
+- A `Modifier` is the modifier key that can be used in combination with a `Key` (e.g. `Shift` or `Alt`).
+- A `MouseButton` represents the clicked button that corresponds to the [MouseEvent.buttons](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons) property.
+- A `Token` can be a `Key`, `Modifier`, or `MouseButton` (i.e. a union type).
+- A `Chord` is a `Token` or `number` that represents a combination of `Token` values combined using the [bitwise OR (`|`) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR).

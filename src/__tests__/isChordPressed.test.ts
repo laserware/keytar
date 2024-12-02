@@ -2,7 +2,7 @@ import { isPlatform } from "@laserware/arcade";
 
 import { getChordDisplay } from "../getChordDisplay.ts";
 import { isChordPressed } from "../isChordPressed.ts";
-import { EventButton, Key, Modifier, MouseButton } from "../types.ts";
+import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
 
 vi.mock("@laserware/arcade");
 
@@ -199,7 +199,7 @@ describe("the isChordPressed function", () => {
     vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
 
     // prettier-ignore
-    const event = new MouseEvent("mousedown", { altKey: true, ctrlKey: false, metaKey: false, shiftKey: false, buttons: EventButton.Left });
+    const event = new MouseEvent("mousedown", { altKey: true, ctrlKey: false, metaKey: false, shiftKey: false, buttons: MouseEventButton.Left });
 
     const result = isChordPressed(event, Modifier.Alt | MouseButton.Left);
 
@@ -245,32 +245,32 @@ describe("the isChordPressed function", () => {
     // prettier-ignore
     it.concurrent.each([
       {
-        event: new MouseEvent("keydown", { buttons: EventButton.Left, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),
+        event: new MouseEvent("keydown", { buttons: MouseEventButton.Left, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),
         chord: MouseButton.Left,
         display: getChordDisplay(MouseButton.Left),
       },
       {
-        event: new MouseEvent("keydown", { buttons: EventButton.Right, altKey: true, ctrlKey: false, metaKey: false, shiftKey: false }),
+        event: new MouseEvent("keydown", { buttons: MouseEventButton.Right, altKey: true, ctrlKey: false, metaKey: false, shiftKey: false }),
         chord: Modifier.Alt | MouseButton.Right,
         display: getChordDisplay(Modifier.Alt | MouseButton.Right),
       },
       {
-        event: new MouseEvent("keydown", { buttons: EventButton.Auxiliary, altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
+        event: new MouseEvent("keydown", { buttons: MouseEventButton.Auxiliary, altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
         chord: Modifier.Alt | Modifier.Shift | MouseButton.Auxiliary,
         display: getChordDisplay(Modifier.Alt | Modifier.Shift | MouseButton.Auxiliary),
       },
       {
-        event: new MouseEvent("keydown", { buttons: EventButton.BrowserBack, altKey: true, ctrlKey: true, metaKey: false, shiftKey: true }),
+        event: new MouseEvent("keydown", { buttons: MouseEventButton.BrowserBack, altKey: true, ctrlKey: true, metaKey: false, shiftKey: true }),
         chord: Modifier.Alt | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserBack,
         display: getChordDisplay(Modifier.Alt | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserBack),
       },
       {
-        event: new MouseEvent("keydown", { buttons: EventButton.BrowserForward, altKey: true, ctrlKey: true, metaKey: true, shiftKey: true }),
+        event: new MouseEvent("keydown", { buttons: MouseEventButton.BrowserForward, altKey: true, ctrlKey: true, metaKey: true, shiftKey: true }),
         chord: Modifier.Alt | Modifier.Cmd | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserForward,
         display: getChordDisplay(Modifier.Alt | Modifier.Cmd | Modifier.Ctrl | Modifier.Shift | MouseButton.BrowserForward),
       },
       {
-        event: new MouseEvent("keydown", { buttons: EventButton.None, altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
+        event: new MouseEvent("keydown", { buttons: MouseEventButton.None, altKey: true, ctrlKey: false, metaKey: false, shiftKey: true }),
         chord: Modifier.Alt | Modifier.Shift | MouseButton.None,
         display: getChordDisplay(Modifier.Alt | Modifier.Shift | MouseButton.None),
       },

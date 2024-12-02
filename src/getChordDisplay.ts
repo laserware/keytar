@@ -3,14 +3,14 @@ import {
   eventKeyByKeyEnumTable,
   keyEnumByEventKeyTable,
   modifierByModifierStatusTable,
-  mouseButtonByEventButtonTable,
+  mouseButtonByMouseEventButtonTable,
   tokensDisplayTable,
 } from "./tables.ts";
 import {
-  EventButton,
   Key,
   Modifier,
   MouseButton,
+  MouseEventButton,
   type Chord,
   type ChordedEvent,
   type Token,
@@ -151,9 +151,9 @@ function eventToTokens(event: ChordedEvent): TokenSet {
   }
 
   if ("buttons" in event) {
-    const eventButton = event.buttons as EventButton;
+    const eventButton = event.buttons as MouseEventButton;
 
-    const mouseButton = mouseButtonByEventButtonTable.get(eventButton);
+    const mouseButton = mouseButtonByMouseEventButtonTable.get(eventButton);
     if (mouseButton !== undefined) {
       tokens.add(mouseButton);
     }

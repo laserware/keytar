@@ -38,7 +38,7 @@ export function isPrintableCharPressed(event: ChordedEvent): boolean {
  * @returns `true` if the specified `key` is a printable character.
  */
 export function isPrintableChar(key: string): boolean {
-  if (/[a-z0-9]/gi.test(key) && key.length === 1) {
+  if (key.match(/\S/) && key.length === 1) {
     return true;
   }
 

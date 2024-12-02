@@ -120,22 +120,6 @@ export enum Key {
 }
 
 /**
- * These are taken directly from the actual value from the event. We're using
- * the bit-shifted representation to stay consistent with {@linkcode Modifier}.
- *
- * See the [buttons](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
- * documentation on MDN for additional details.
- */
-export enum EventButton {
-  /* 0  */ None = 0,
-  /* 1  */ Left = 1 << 0,
-  /* 2  */ Right = 1 << 1,
-  /* 4  */ Auxiliary = 1 << 2,
-  /* 8  */ BrowserBack = 1 << 3,
-  /* 16 */ BrowserForward = 1 << 4,
-}
-
-/**
  * Keyboard modifier keys (e.g. Shift, Alt, etc.).
  */
 export enum Modifier {
@@ -147,13 +131,29 @@ export enum Modifier {
 }
 
 /**
+ * These are taken directly from the actual value from the event. We're using
+ * the bit-shifted representation to stay consistent with {@linkcode Modifier}.
+ *
+ * See the [buttons](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
+ * documentation on MDN for additional details.
+ */
+export enum MouseEventButton {
+  /* 0  */ None = 0,
+  /* 1  */ Left = 1 << 0,
+  /* 2  */ Right = 1 << 1,
+  /* 4  */ Auxiliary = 1 << 2,
+  /* 8  */ BrowserBack = 1 << 3,
+  /* 16 */ BrowserForward = 1 << 4,
+}
+
+/**
  * Represents mouse buttons that could be pressed. These do not match the mouse
  * buttons from the [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) (which are much lower).
  * This is so we can check for a combination of keyboard modifiers and mouse
  * buttons (e.g. `Shift` + Left Click).
  */
 export enum MouseButton {
-  /* 4096   */ None = 0,
+  None = 0,
   // We start here so we can include keyboard modifiers:
   /* 8192   */ Left = 1 << 13,
   /* 16384  */ Right = 1 << 14,

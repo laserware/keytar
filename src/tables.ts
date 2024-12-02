@@ -1,10 +1,10 @@
 import { isPlatform } from "@laserware/arcade";
 
 import {
-  EventButton,
   Key,
   Modifier,
   MouseButton,
+  MouseEventButton,
   type Chord,
   type KeyModifierState,
 } from "./types.ts";
@@ -29,17 +29,20 @@ export const modifierByModifierStatusTable = new Map<
  * Table for looking up the {@linkcode MouseButton} that corresponds to the
  * [`event.buttons` property](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
  * on a [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent)
- * (represented by {@linkcode EventButton}).
+ * (represented by {@linkcode MouseEventButton}).
  *
  * @internal
  */
-export const mouseButtonByEventButtonTable = new Map<EventButton, MouseButton>([
-  [EventButton.None, MouseButton.None],
-  [EventButton.Left, MouseButton.Left],
-  [EventButton.Right, MouseButton.Right],
-  [EventButton.Auxiliary, MouseButton.Auxiliary],
-  [EventButton.BrowserBack, MouseButton.BrowserBack],
-  [EventButton.BrowserForward, MouseButton.BrowserForward],
+export const mouseButtonByMouseEventButtonTable = new Map<
+  MouseEventButton,
+  MouseButton
+>([
+  [MouseEventButton.None, MouseButton.None],
+  [MouseEventButton.Left, MouseButton.Left],
+  [MouseEventButton.Right, MouseButton.Right],
+  [MouseEventButton.Auxiliary, MouseButton.Auxiliary],
+  [MouseEventButton.BrowserBack, MouseButton.BrowserBack],
+  [MouseEventButton.BrowserForward, MouseButton.BrowserForward],
 ]);
 
 /**

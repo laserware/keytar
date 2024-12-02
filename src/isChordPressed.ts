@@ -3,9 +3,9 @@ import { isPlatform } from "@laserware/arcade";
 import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.ts";
 import { eventKeyByKeyEnumTable } from "./tables.ts";
 import {
-  EventButton,
   Modifier,
   MouseButton,
+  MouseEventButton,
   type Chord,
   type ChordedEvent,
 } from "./types.ts";
@@ -29,25 +29,25 @@ export function isChordPressed(
     let lookup = chord;
 
     if ("buttons" in event) {
-      const button = event.buttons as EventButton;
+      const button = event.buttons as MouseEventButton;
 
-      if (button === EventButton.BrowserForward) {
+      if (button === MouseEventButton.BrowserForward) {
         lookup = stripToken(lookup, MouseButton.BrowserForward);
       }
 
-      if (button === EventButton.BrowserBack) {
+      if (button === MouseEventButton.BrowserBack) {
         lookup = stripToken(lookup, MouseButton.BrowserBack);
       }
 
-      if (button === EventButton.Auxiliary) {
+      if (button === MouseEventButton.Auxiliary) {
         lookup = stripToken(lookup, MouseButton.Auxiliary);
       }
 
-      if (button === EventButton.Right) {
+      if (button === MouseEventButton.Right) {
         lookup = stripToken(lookup, MouseButton.Right);
       }
 
-      if (button === EventButton.Left) {
+      if (button === MouseEventButton.Left) {
         lookup = stripToken(lookup, MouseButton.Left);
       }
 
