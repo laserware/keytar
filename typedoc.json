@@ -4,6 +4,12 @@
   "exclude": ["**/**test.ts"],
   "excludeInternal": true,
   "excludeNotDocumented": true,
+  "externalSymbolLinkMappings": {
+    "typescript": {
+      "KeyboardEvent": "https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent",
+      "MouseEvent": "https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent"
+    }
+  },
   "headings": { "readme": false, "document": false },
   "hideGenerator": true,
   "navigation": {
@@ -13,6 +19,7 @@
     "includeFolders": true,
     "includeGroups": false
   },
+  "markdownLinkExternal": true,
   "navigationLinks": { "GitHub": "https://github.com/laserware/keytar" },
   "out": "site",
   "readme": "./README.md"
