@@ -22,5 +22,6 @@
   "markdownLinkExternal": true,
   "navigationLinks": { "GitHub": "https://github.com/laserware/keytar" },
   "out": "site",
-  "readme": "./README.md"
+  "readme": "./README.md",
+  "useFirstParagraphOfCommentAsSummary": true
 }

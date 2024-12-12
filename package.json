@@ -41,17 +41,17 @@
     "vitest": "vitest"
   },
   "dependencies": {
-    "@laserware/arcade": "^3.10.0"
+    "@laserware/arcade": "^3.11.1"
   },
   "devDependencies": {
-    "@laserware/eslint-config": "^5.2.0",
+    "@laserware/eslint-config": "^5.3.0",
     "@vitest/coverage-istanbul": "^2.1.8",
     "eslint": "^9.16.0",
     "jsdom": "^25.0.1",
-    "prettier": "^3.4.1",
+    "prettier": "^3.4.2",
     "tslib": "^2.8.1",
     "tsup": "^8.3.5",
-    "typedoc": "^0.27.2",
+    "typedoc": "^0.27.4",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   },
