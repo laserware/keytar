@@ -2,7 +2,16 @@
   "name": "@laserware/keytar",
   "version": "3.0.1",
   "description": "Handle keyboard and mouse events in the browser.",
+  "author": "Mike Rourke <mike.w.rourke@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "url": "git+https://github.com/laserware/keytar.git",
+    "type": "git"
+  },
+  "type": "module",
   "browser": "dist/index.mjs",
+  "main": "dist/index.mjs",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
@@ -10,13 +19,6 @@
       "default": "./dist/index.mjs"
     }
   },
-  "repository": {
-    "url": "git+https://github.com/laserware/keytar.git",
-    "type": "git"
-  },
-  "author": "Mike Rourke <mike.w.rourke@gmail.com>",
-  "license": "MIT",
-  "type": "module",
   "files": [
     "dist"
   ],
@@ -26,6 +28,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "scripts": {
     "build": "tsup && cd dist && npx prettier --write .",
     "prepublishOnly": "npm run build",
