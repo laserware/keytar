@@ -38,7 +38,7 @@
     "ci": "biome ci src",
     "docs:generate": "typedoc  --options typedoc.json",
     "docs:serve": "mkdir -p ./site && cd ./site && bunx vite",
-    "format": "biome format --write src",
+    "format": "biome check --formatter-enabled=true --linter-enabled=false --organize-imports-enabled=true --write src",
     "format:tests": "bunx prettier \"src/**/*.test.ts\" --write --print-width 100",
     "lint": "biome lint src",
     "test": "bun test",

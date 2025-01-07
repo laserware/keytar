@@ -7,12 +7,12 @@ import {
   tokensDisplayTable,
 } from "./tables.ts";
 import {
-  Modifier,
-  MouseButton,
-  type MouseEventButton,
   type Chord,
   type ChordedEvent,
   type Key,
+  Modifier,
+  MouseButton,
+  type MouseEventButton,
   type Token,
 } from "./types.ts";
 
