@@ -1,3 +1,5 @@
+import { describe, expect, it, mock } from "bun:test";
+
 import { handleChords } from "../handleChords.ts";
 import { isPrintableCharPressed } from "../printableChars.ts";
 import { Key, Modifier } from "../types.ts";
@@ -5,7 +7,7 @@ import { Key, Modifier } from "../types.ts";
 describe("the handleChords function", () => {
   describe("when using the match and listener arguments", () => {
     it("only fires the handler when a single chord is pressed", () => {
-      const handlerFired = vi.fn();
+      const handlerFired = mock();
 
       const event = new KeyboardEvent("keydown", {
         key: "c",
@@ -25,8 +27,8 @@ describe("the handleChords function", () => {
 
   describe("when using the builder function", () => {
     it("only fires the handler when the key chord is pressed", () => {
-      const handlerFired = vi.fn();
-      const handlerNotFired = vi.fn();
+      const handlerFired = mock();
+      const handlerNotFired = mock();
 
       const event = new KeyboardEvent("keydown", {
         key: "c",
@@ -57,8 +59,8 @@ describe("the handleChords function", () => {
     });
 
     it("handles arrow keys", () => {
-      const handlerFired = vi.fn();
-      const handlerNotFired = vi.fn();
+      const handlerFired = mock();
+      const handlerNotFired = mock();
 
       const event = new KeyboardEvent("keydown", {
         key: "ArrowDown",
@@ -89,7 +91,7 @@ describe("the handleChords function", () => {
     });
 
     it("handles when handlers", () => {
-      const handlerFired = vi.fn();
+      const handlerFired = mock();
 
       const event = new KeyboardEvent("keydown", {
         key: "a",

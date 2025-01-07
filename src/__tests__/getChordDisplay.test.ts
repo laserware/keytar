@@ -1,15 +1,11 @@
+import { describe, expect, it, mock } from "bun:test";
+
 import { getChordDisplay } from "../getChordDisplay.ts";
 import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
 
-vi.mock("@laserware/arcade", async (importActual) => {
-  const mod = await importActual();
-
-  return {
-    // @ts-ignore
-    ...mod,
-    isPlatform: (platform: string) => platform === "mac",
-  };
-});
+mock.module("@laserware/arcade", () => ({
+  isPlatform: () => true,
+}));
 
 describe("the getChordDisplay function", () => {
   it("returns the display for a chord", () => {
