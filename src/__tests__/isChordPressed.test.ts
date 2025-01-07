@@ -39,10 +39,6 @@ describe("the isChordPressed function", () => {
         display: getChordDisplay(Modifier.Alt | Modifier.Shift | Key.LetterA),
       },
     ])("when $display is pressed and event matches", async ({ event, chord }) => {
-      mock.module("@laserware/arcade", () => ({
-        isPlatform: (platform: string) => platform === "mac",
-      }));
-
       const result = isChordPressed(event, chord);
 
       expect(result).toBeTruthy();
@@ -78,10 +74,6 @@ describe("the isChordPressed function", () => {
         display: getChordDisplay(Modifier.Alt | Modifier.Cmd | Key.LetterB),
       },
     ])("when $display is pressed and event does not match", async ({ event, chord })=> {
-      mock.module("@laserware/arcade", () => ({
-        isPlatform: (platform: string) => platform === "mac",
-      }));
-
       const result = isChordPressed(event, chord);
 
       expect(result).toBeFalsy();
@@ -173,10 +165,6 @@ describe("the isChordPressed function", () => {
     ])(
       "returns $expected when $display ($chord) is pressed",
       async ({ event, chord, expected }) => {
-        mock.module("@laserware/arcade", () => ({
-          isPlatform: (platform: string) => platform === "mac",
-        }));
-
         const result = isChordPressed(event, chord);
 
         expect(result).toBe(expected);
@@ -185,10 +173,6 @@ describe("the isChordPressed function", () => {
   });
 
   it("returns true if only modifiers are specified with no key", () => {
-    mock.module("@laserware/arcade", () => ({
-      isPlatform: (platform: string) => platform === "mac",
-    }));
-
     // prettier-ignore
     const event = new KeyboardEvent("keydown", { altKey: true, ctrlKey: true, metaKey: false, shiftKey: true });
 
@@ -198,10 +182,6 @@ describe("the isChordPressed function", () => {
   });
 
   it("returns true if mouse buttons are specified and are clicked", () => {
-    mock.module("@laserware/arcade", () => ({
-      isPlatform: (platform: string) => platform === "mac",
-    }));
-
     // prettier-ignore
     const event = new MouseEvent("mousedown", { altKey: true, ctrlKey: false, metaKey: false, shiftKey: false, buttons: MouseEventButton.Left });
 
@@ -212,10 +192,6 @@ describe("the isChordPressed function", () => {
 
   describe("when checking for CmdOrCtrl", () => {
     it("clears the Cmd key on macOS", () => {
-      mock.module("@laserware/arcade", () => ({
-        isPlatform: (platform: string) => platform === "mac",
-      }));
-
       // prettier-ignore
       const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: true, shiftKey: false });
 
@@ -239,10 +215,6 @@ describe("the isChordPressed function", () => {
   });
 
   it("handles Shift and Shift + Tab", () => {
-    mock.module("@laserware/arcade", () => ({
-      isPlatform: (platform: string) => platform === "mac",
-    }));
-
     // prettier-ignore
     const event = new KeyboardEvent("keydown", { key: "Tab", altKey: false, ctrlKey: false, metaKey: false, shiftKey: true });
 
@@ -285,10 +257,6 @@ describe("the isChordPressed function", () => {
         display: getChordDisplay(Modifier.Alt | Modifier.Shift | MouseButton.None),
       },
     ])("when $display is pressed and event matches", async ({ event, chord }) => {
-      mock.module("@laserware/arcade", () => ({
-        isPlatform: (platform: string) => platform === "mac",
-      }));
-
       const result = isChordPressed(event, chord);
 
       expect(result).toBeTruthy();

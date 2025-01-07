@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from "bun:test";
+import { describe, expect, it } from "bun:test";
 
 import { getChordDisplay } from "../getChordDisplay.ts";
 import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
