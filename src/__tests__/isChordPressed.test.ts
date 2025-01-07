@@ -6,7 +6,7 @@ import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
 
 describe("the isChordPressed function", () => {
   describe("returns true if requirements are met for keyboard events", () => {
-    // prettier-ignore
+    // biome-ignore format:
     it.each([
       {
         event: new KeyboardEvent("keydown", { key: "B", altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),
@@ -46,7 +46,7 @@ describe("the isChordPressed function", () => {
   });
 
   describe("returns false if requirements are not met for keyboard events", () => {
-    // prettier-ignore
+    // biome-ignore format:
     it.each([
       {
         event: new KeyboardEvent("keydown", { key: "B", altKey: true, ctrlKey: false, metaKey: false, shiftKey: false }),
@@ -81,7 +81,7 @@ describe("the isChordPressed function", () => {
   });
 
   describe("when the Command key is specified", () => {
-    // prettier-ignore
+    // biome-ignore format:
     it.each([
       // Command modifier:
       {
@@ -173,7 +173,7 @@ describe("the isChordPressed function", () => {
   });
 
   it("returns true if only modifiers are specified with no key", () => {
-    // prettier-ignore
+    // biome-ignore format:
     const event = new KeyboardEvent("keydown", { altKey: true, ctrlKey: true, metaKey: false, shiftKey: true });
 
     const result = isChordPressed(event, Modifier.Ctrl | Modifier.Alt | Modifier.Shift);
@@ -182,7 +182,7 @@ describe("the isChordPressed function", () => {
   });
 
   it("returns true if mouse buttons are specified and are clicked", () => {
-    // prettier-ignore
+    // biome-ignore format:
     const event = new MouseEvent("mousedown", { altKey: true, ctrlKey: false, metaKey: false, shiftKey: false, buttons: MouseEventButton.Left });
 
     const result = isChordPressed(event, Modifier.Alt | MouseButton.Left);
@@ -192,7 +192,7 @@ describe("the isChordPressed function", () => {
 
   describe("when checking for CmdOrCtrl", () => {
     it("clears the Cmd key on macOS", () => {
-      // prettier-ignore
+      // biome-ignore format:
       const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: true, shiftKey: false });
 
       const result = isChordPressed(event, Modifier.CmdOrCtrl | Modifier.Ctrl);
@@ -205,7 +205,7 @@ describe("the isChordPressed function", () => {
         isPlatform: (platform: string) => platform !== "mac",
       }));
 
-      // prettier-ignore
+      // biome-ignore format:
       const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: false, shiftKey: false });
 
       const result = isChordPressed(event, Modifier.CmdOrCtrl);
@@ -215,7 +215,7 @@ describe("the isChordPressed function", () => {
   });
 
   it("handles Shift and Shift + Tab", () => {
-    // prettier-ignore
+    // biome-ignore format:
     const event = new KeyboardEvent("keydown", { key: "Tab", altKey: false, ctrlKey: false, metaKey: false, shiftKey: true });
 
     const result = isChordPressed(event, Key.Tab, Modifier.Shift | Key.Tab);
@@ -224,7 +224,7 @@ describe("the isChordPressed function", () => {
   });
 
   describe("returns true if requirements are met for mouse events", () => {
-    // prettier-ignore
+    // biome-ignore format:
     it.each([
       {
         event: new MouseEvent("keydown", { buttons: MouseEventButton.Left, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),

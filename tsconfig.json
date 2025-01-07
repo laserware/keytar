@@ -15,9 +15,10 @@
     "sourceMap": false,
     "strict": true,
     "strictNullChecks": true,
+    "stripInternal": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true
   },
-  "include": ["src"],
+  "include": ["src", "./test.setup.ts", "./tsup.config.ts"],
   "exclude": ["dist", "node_modules"]
 }

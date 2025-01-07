@@ -2,12 +2,13 @@
   "name": "@laserware/keytar",
   "version": "3.0.2",
   "description": "Handle keyboard and mouse events in the browser.",
-  "author": "Mike Rourke <mike.w.rourke@gmail.com>",
+  "author": "Mike Rourke <mike.w.rourke@gmail.com> (https://mikerourke.dev/)",
   "license": "MIT",
   "repository": {
     "url": "git+https://github.com/laserware/keytar.git",
     "type": "git"
   },
+  "homepage": "https://laserware.github.io/keytar/",
   "type": "module",
   "browser": "dist/index.mjs",
   "main": "dist/index.mjs",
@@ -39,7 +40,6 @@
     "docs:generate": "typedoc  --options typedoc.json",
     "docs:serve": "mkdir -p ./site && cd ./site && bunx vite",
     "format": "biome check --formatter-enabled=true --linter-enabled=false --organize-imports-enabled=true --write src",
-    "format:tests": "bunx prettier \"src/**/*.test.ts\" --write --print-width 100",
     "lint": "biome lint src",
     "test": "bun test",
     "typecheck": "tsc --noEmit"
