@@ -156,7 +156,7 @@ export function handleChords<E extends ChordedEvent>(
     return handleChord(event, chordsOrBuilder, listener);
   }
 
-  // prettier-ignore
+  // biome-ignore format:
   const handler: ChordHandler<E> = {
     on(chords: ChordInput, listener: ChordMatchListener<E>): ChordHandler<E> {
       handleChord(event, chords, listener);
