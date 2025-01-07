@@ -1,11 +1,15 @@
 // noinspection JSConstantReassignment
 
-import { afterAll, afterEach, beforeAll } from "bun:test";
+import { afterAll, afterEach, beforeAll, mock } from "bun:test";
 
 // @ts-ignore
 import JSDOM from "jsdom";
 
 const globalProperties: any[] = [];
+
+mock.module("@laserware/arcade", () => ({
+  isPlatform: (platform: string) => platform === "mac",
+}));
 
 beforeAll(() => {
   const jsdom = new JSDOM.JSDOM(
