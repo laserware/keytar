@@ -3,18 +3,22 @@ import { describe, expect, it, mock } from "bun:test";
 import { getChordDisplay } from "../getChordDisplay.ts";
 import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
 
-mock.module("@laserware/arcade", () => ({
-  isPlatform: () => true,
-}));
-
 describe("the getChordDisplay function", () => {
   it("returns the display for a chord", () => {
+    mock.module("@laserware/arcade", () => ({
+      isPlatform: (platform: string) => platform === "mac",
+    }));
+
     const result = getChordDisplay(Modifier.Alt | Modifier.Shift | Key.LetterC | MouseButton.Left);
 
     expect(result).toBe("⌥ + Shift + Left Click + C");
   });
 
   it("returns the chord display for a keyboard event", () => {
+    mock.module("@laserware/arcade", () => ({
+      isPlatform: (platform: string) => platform === "mac",
+    }));
+
     const event = new KeyboardEvent("keydown", {
       key: "ArrowDown",
       altKey: true,
@@ -29,6 +33,10 @@ describe("the getChordDisplay function", () => {
   });
 
   it("returns the chord display for a mouse event", () => {
+    mock.module("@laserware/arcade", () => ({
+      isPlatform: (platform: string) => platform === "mac",
+    }));
+
     const event = new MouseEvent("mousedown", {
       buttons: MouseEventButton.Left,
       altKey: true,
