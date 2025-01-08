@@ -15,7 +15,6 @@
     "sourceMap": false,
     "strict": true,
     "strictNullChecks": true,
-    "stripInternal": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true
   },
