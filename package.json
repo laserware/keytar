@@ -47,12 +47,12 @@
     "@laserware/arcade": "^3.13.3"
   },
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.1.16",
     "@biomejs/biome": "1.9.4",
-    "jsdom": "^25.0.1",
+    "jsdom": "^26.0.0",
     "tsup": "^8.3.5",
     "typedoc": "^0.27.6",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "trustedDependencies": [
     "@biomejs/biome",

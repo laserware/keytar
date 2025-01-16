@@ -153,7 +153,7 @@ export function handleChords<E extends ChordedEvent>(
       throw new Error("Listener must be specified if chord or chords are used");
     }
 
-    return handleChord(event, chordsOrBuilder, listener);
+    return void handleChord(event, chordsOrBuilder, listener);
   }
 
   // biome-ignore format:
@@ -174,7 +174,7 @@ export function handleChords<E extends ChordedEvent>(
     },
   };
 
-  return chordsOrBuilder(handler);
+  return void chordsOrBuilder(handler);
 }
 
 function handleChord<E extends ChordedEvent>(
