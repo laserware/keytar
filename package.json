@@ -33,15 +33,15 @@
   "scripts": {
     "build": "tsup",
     "prepublishOnly": "bun run build",
-    "preversion": "bun run lint && bun run typecheck",
-    "version": "bun run format && git add -A src",
+    "preversion": "bun run check:biome && bun run check:types",
+    "version": "git add -A src",
     "postversion": "git push && git push --tags",
+    "check:biome": "biome check --write src",
+    "check:types": "tsc --noEmit",
     "ci": "biome ci src",
     "docs:generate": "typedoc  --options typedoc.json",
     "docs:serve": "mkdir -p ./site && cd ./site && bunx vite",
-    "check": "biome check --write src",
-    "test": "bun test",
-    "typecheck": "tsc --noEmit"
+    "test": "bun test"
   },
   "dependencies": {
     "@laserware/arcade": "^3.13.3"
