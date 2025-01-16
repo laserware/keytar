@@ -22,9 +22,6 @@
     "enabled": true,
     "rules": {
       "recommended": true,
-      "correctness": {
-        "noVoidTypeReturn": "off"
-      },
       "style": {
         "noUselessElse": "off",
         "noParameterAssign": "off",
