@@ -1,7 +1,9 @@
+import { describe, expect, it } from "bun:test";
+
 import { isPrintableChar, isPrintableCharPressed } from "../printableChars.ts";
 
 describe("within printableChars", () => {
-  describe.concurrent("the isPrintableChar function", () => {
+  describe("the isPrintableChar function", () => {
     it("returns true for lowercase letters", async () => {
       expect(isPrintableChar("a")).toBeTruthy();
     });
@@ -31,7 +33,7 @@ describe("within printableChars", () => {
     });
   });
 
-  describe.concurrent("the isPrintableCharPressed function", () => {
+  describe("the isPrintableCharPressed function", () => {
     it("returns true for lowercase letters", async () => {
       const event = new KeyboardEvent("keydown", { key: "a" });
 

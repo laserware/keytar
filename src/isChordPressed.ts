@@ -3,11 +3,11 @@ import { isPlatform } from "@laserware/arcade";
 import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.ts";
 import { eventKeyByKeyEnumTable } from "./tables.ts";
 import {
+  type Chord,
+  type ChordedEvent,
   Modifier,
   MouseButton,
   MouseEventButton,
-  type Chord,
-  type ChordedEvent,
 } from "./types.ts";
 
 /**

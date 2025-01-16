@@ -2,12 +2,13 @@
   "name": "@laserware/keytar",
   "version": "3.0.2",
   "description": "Handle keyboard and mouse events in the browser.",
-  "author": "Mike Rourke <mike.w.rourke@gmail.com>",
+  "author": "Mike Rourke <mike.w.rourke@gmail.com> (https://mikerourke.dev/)",
   "license": "MIT",
   "repository": {
     "url": "git+https://github.com/laserware/keytar.git",
     "type": "git"
   },
+  "homepage": "https://laserware.github.io/keytar/",
   "type": "module",
   "browser": "dist/index.mjs",
   "main": "dist/index.mjs",
@@ -30,43 +31,31 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "tsup && cd dist && npx prettier --write .",
-    "prepublishOnly": "npm run build",
-    "preversion": "npm run eslint && npm run typecheck",
-    "version": "npm run prettier && git add -A src",
+    "build": "tsup",
+    "prepublishOnly": "bun run build",
+    "preversion": "bun run lint && bun run typecheck",
+    "version": "bun run format && git add -A src",
     "postversion": "git push && git push --tags",
+    "ci": "biome ci src",
     "docs:generate": "typedoc  --options typedoc.json",
-    "docs:serve": "mkdir -p ./site && cd ./site && ../node_modules/.bin/vite",
-    "eslint": "eslint --cache src",
-    "prettier": "prettier --cache --write src",
-    "prettier:ci": "prettier --check src",
-    "typecheck": "tsc --noEmit",
-    "vitest": "vitest"
+    "docs:serve": "mkdir -p ./site && cd ./site && bunx vite",
+    "check": "biome check --write src",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@laserware/arcade": "^3.12.1"
+    "@laserware/arcade": "^3.13.3"
   },
   "devDependencies": {
-    "@laserware/eslint-config": "^5.3.0",
-    "@vitest/coverage-istanbul": "^2.1.8",
-    "eslint": "^9.17.0",
-    "jsdom": "^25.0.1",
-    "prettier": "^3.4.2",
-    "tslib": "^2.8.1",
+    "@types/bun": "^1.1.16",
+    "@biomejs/biome": "1.9.4",
+    "jsdom": "^26.0.0",
     "tsup": "^8.3.5",
     "typedoc": "^0.27.6",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "typescript": "^5.7.3"
   },
-  "prettier": {
-    "trailingComma": "all",
-    "overrides": [
-      {
-        "files": "*.test.ts",
-        "options": {
-          "printWidth": 100
-        }
-      }
-    ]
-  }
+  "trustedDependencies": [
+    "@biomejs/biome",
+    "esbuild"
+  ]
 }

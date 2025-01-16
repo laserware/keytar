@@ -153,10 +153,10 @@ export function handleChords<E extends ChordedEvent>(
       throw new Error("Listener must be specified if chord or chords are used");
     }
 
-    return handleChord(event, chordsOrBuilder, listener);
+    return void handleChord(event, chordsOrBuilder, listener);
   }
 
-  // prettier-ignore
+  // biome-ignore format:
   const handler: ChordHandler<E> = {
     on(chords: ChordInput, listener: ChordMatchListener<E>): ChordHandler<E> {
       handleChord(event, chords, listener);
@@ -174,7 +174,7 @@ export function handleChords<E extends ChordedEvent>(
     },
   };
 
-  return chordsOrBuilder(handler);
+  return void chordsOrBuilder(handler);
 }
 
 function handleChord<E extends ChordedEvent>(

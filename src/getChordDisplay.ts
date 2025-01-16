@@ -7,12 +7,12 @@ import {
   tokensDisplayTable,
 } from "./tables.ts";
 import {
-  Key,
-  Modifier,
-  MouseButton,
-  MouseEventButton,
   type Chord,
   type ChordedEvent,
+  type Key,
+  Modifier,
+  MouseButton,
+  type MouseEventButton,
   type Token,
 } from "./types.ts";
 
@@ -48,7 +48,7 @@ export function getChordDisplay(
 
 export function getChordDisplay(
   chordOrEvent: Chord | ChordedEvent,
-  joinSymbol: string = " + ",
+  joinSymbol = " + ",
 ): string {
   const tokens =
     typeof chordOrEvent === "number"

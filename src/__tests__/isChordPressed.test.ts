@@ -1,19 +1,13 @@
-import { isPlatform } from "@laserware/arcade";
+import { describe, expect, it, mock } from "bun:test";
 
 import { getChordDisplay } from "../getChordDisplay.ts";
 import { isChordPressed } from "../isChordPressed.ts";
 import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
 
-vi.mock("@laserware/arcade");
-
 describe("the isChordPressed function", () => {
-  beforeEach(() => {
-    vi.resetAllMocks();
-  });
-
   describe("returns true if requirements are met for keyboard events", () => {
-    // prettier-ignore
-    it.concurrent.each([
+    // biome-ignore format:
+    it.each([
       {
         event: new KeyboardEvent("keydown", { key: "B", altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),
         chord: Key.LetterB,
@@ -45,8 +39,6 @@ describe("the isChordPressed function", () => {
         display: getChordDisplay(Modifier.Alt | Modifier.Shift | Key.LetterA),
       },
     ])("when $display is pressed and event matches", async ({ event, chord }) => {
-      vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
       const result = isChordPressed(event, chord);
 
       expect(result).toBeTruthy();
@@ -54,8 +46,8 @@ describe("the isChordPressed function", () => {
   });
 
   describe("returns false if requirements are not met for keyboard events", () => {
-    // prettier-ignore
-    it.concurrent.each([
+    // biome-ignore format:
+    it.each([
       {
         event: new KeyboardEvent("keydown", { key: "B", altKey: true, ctrlKey: false, metaKey: false, shiftKey: false }),
         chord: Key.LetterB,
@@ -82,8 +74,6 @@ describe("the isChordPressed function", () => {
         display: getChordDisplay(Modifier.Alt | Modifier.Cmd | Key.LetterB),
       },
     ])("when $display is pressed and event does not match", async ({ event, chord })=> {
-      vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
       const result = isChordPressed(event, chord);
 
       expect(result).toBeFalsy();
@@ -91,8 +81,8 @@ describe("the isChordPressed function", () => {
   });
 
   describe("when the Command key is specified", () => {
-    // prettier-ignore
-    it.concurrent.each([
+    // biome-ignore format:
+    it.each([
       // Command modifier:
       {
         event: new KeyboardEvent("keydown", { key: "A", altKey: false, ctrlKey: true, metaKey: false, shiftKey: false }),
@@ -175,8 +165,6 @@ describe("the isChordPressed function", () => {
     ])(
       "returns $expected when $display ($chord) is pressed",
       async ({ event, chord, expected }) => {
-        vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
         const result = isChordPressed(event, chord);
 
         expect(result).toBe(expected);
@@ -185,9 +173,7 @@ describe("the isChordPressed function", () => {
   });
 
   it("returns true if only modifiers are specified with no key", () => {
-    vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
-    // prettier-ignore
+    // biome-ignore format:
     const event = new KeyboardEvent("keydown", { altKey: true, ctrlKey: true, metaKey: false, shiftKey: true });
 
     const result = isChordPressed(event, Modifier.Ctrl | Modifier.Alt | Modifier.Shift);
@@ -196,9 +182,7 @@ describe("the isChordPressed function", () => {
   });
 
   it("returns true if mouse buttons are specified and are clicked", () => {
-    vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
-    // prettier-ignore
+    // biome-ignore format:
     const event = new MouseEvent("mousedown", { altKey: true, ctrlKey: false, metaKey: false, shiftKey: false, buttons: MouseEventButton.Left });
 
     const result = isChordPressed(event, Modifier.Alt | MouseButton.Left);
@@ -208,9 +192,7 @@ describe("the isChordPressed function", () => {
 
   describe("when checking for CmdOrCtrl", () => {
     it("clears the Cmd key on macOS", () => {
-      vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
-      // prettier-ignore
+      // biome-ignore format:
       const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: true, shiftKey: false });
 
       const result = isChordPressed(event, Modifier.CmdOrCtrl | Modifier.Ctrl);
@@ -219,9 +201,11 @@ describe("the isChordPressed function", () => {
     });
 
     it("clears the Ctrl key on Windows/Linux", () => {
-      vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform !== "mac");
+      mock.module("@laserware/arcade", () => ({
+        isPlatform: (platform: string) => platform !== "mac",
+      }));
 
-      // prettier-ignore
+      // biome-ignore format:
       const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: false, shiftKey: false });
 
       const result = isChordPressed(event, Modifier.CmdOrCtrl);
@@ -231,9 +215,7 @@ describe("the isChordPressed function", () => {
   });
 
   it("handles Shift and Shift + Tab", () => {
-    vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
-    // prettier-ignore
+    // biome-ignore format:
     const event = new KeyboardEvent("keydown", { key: "Tab", altKey: false, ctrlKey: false, metaKey: false, shiftKey: true });
 
     const result = isChordPressed(event, Key.Tab, Modifier.Shift | Key.Tab);
@@ -242,8 +224,8 @@ describe("the isChordPressed function", () => {
   });
 
   describe("returns true if requirements are met for mouse events", () => {
-    // prettier-ignore
-    it.concurrent.each([
+    // biome-ignore format:
+    it.each([
       {
         event: new MouseEvent("keydown", { buttons: MouseEventButton.Left, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false }),
         chord: MouseButton.Left,
@@ -275,8 +257,6 @@ describe("the isChordPressed function", () => {
         display: getChordDisplay(Modifier.Alt | Modifier.Shift | MouseButton.None),
       },
     ])("when $display is pressed and event matches", async ({ event, chord }) => {
-      vi.mocked(isPlatform).mockImplementationOnce((platform: string) => platform === "mac");
-
       const result = isChordPressed(event, chord);
 
       expect(result).toBeTruthy();

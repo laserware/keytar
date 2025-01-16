@@ -1,12 +1,12 @@
 import { isPlatform } from "@laserware/arcade";
 
 import {
+  type Chord,
   Key,
+  type KeyModifierState,
   Modifier,
   MouseButton,
   MouseEventButton,
-  type Chord,
-  type KeyModifierState,
 } from "./types.ts";
 
 /**
