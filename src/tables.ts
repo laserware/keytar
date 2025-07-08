@@ -7,7 +7,7 @@ import {
   Modifier,
   MouseButton,
   MouseEventButton,
-} from "./types.ts";
+} from "./types.js";
 
 /**
  * Table for looking up the {@linkcode Modifier} that corresponds to a modifier

@@ -1,17 +1,17 @@
 import { isPlatform } from "@laserware/arcade";
 
-import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.ts";
-import { eventKeyByKeyEnumTable } from "./tables.ts";
+import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.js";
+import { eventKeyByKeyEnumTable } from "./tables.js";
 import {
   type Chord,
   type ChordedEvent,
   Modifier,
   MouseButton,
   MouseEventButton,
-} from "./types.ts";
+} from "./types.js";
 
 /**
- * Checks if one of the specified `chords` combinations were pressed based on
+ * Checks if one of the specified `chords` combinations was pressed based on
  * the specified keyboard or mouse `event`.
  *
  * @param event Keyboard or mouse event from an event listener.

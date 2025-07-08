@@ -1,19 +1,19 @@
-export { getChordDisplay } from "./getChordDisplay.ts";
+export { getChordDisplay } from "./getChordDisplay.js";
 export {
-  handleChords,
   type ChordHandler,
   type ChordHandlerBuilder,
   type ChordInput,
   type ChordMatchListener,
+  handleChords,
   type WhenCondition,
-} from "./handleChords.ts";
-export { isChordPressed } from "./isChordPressed.ts";
-export { isPrintableChar, isPrintableCharPressed } from "./printableChars.ts";
+} from "./handleChords.js";
+export { isChordPressed } from "./isChordPressed.js";
+export { isPrintableChar, isPrintableCharPressed } from "./printableChars.js";
 export {
+  type Chord,
+  type ChordedEvent,
   Key,
   Modifier,
   MouseButton,
-  type Chord,
-  type ChordedEvent,
   type Token,
-} from "./types.ts";
+} from "./types.js";

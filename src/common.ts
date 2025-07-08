@@ -1,4 +1,4 @@
-import type { Chord, Token } from "./types.ts";
+import type { Chord, Token } from "./types.js";
 
 /**
  * Strips the specified `token` from the specified `chord`.
@@ -47,8 +47,8 @@ export function getKeyForLookup(event: KeyboardEvent): string {
   if (event.key.length === 1 && /[a-z]/i.test(event.key)) {
     return event.key.toUpperCase();
   } else if (event.code.startsWith("Key")) {
-    // On macOS, if the user presses the Option key + a letter, the `event.key`
-    // field could be `Unidentified`. We want to be able to use Option + letter
+    // On macOS, if the user presses the Option key and a letter, the `event.key`
+    // field could be `Unidentified`. We want to be able to use Option + <letter>
     // as a keyboard shortcut, so we grab the letter key from the `code` instead:
     return event.code.at(-1) ?? "";
   } else {

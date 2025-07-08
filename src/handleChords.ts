@@ -1,5 +1,5 @@
-import { isChordPressed } from "./isChordPressed.ts";
-import type { ChordedEvent } from "./types.ts";
+import { isChordPressed } from "./isChordPressed.js";
+import type { ChordedEvent } from "./types.js";
 
 /**
  * Listener fired when a matching chord is found.
@@ -9,7 +9,7 @@ import type { ChordedEvent } from "./types.ts";
 export type ChordMatchListener<E extends ChordedEvent> = (event: E) => void;
 
 /**
- * Input for chords, can be a single chord combination or an array of chord
+ * Input for chords can be a single chord combination or an array of chord
  * combinations.
  */
 export type ChordInput = number | number[];
@@ -156,7 +156,7 @@ export function handleChords<E extends ChordedEvent>(
     return void handleChord(event, chordsOrBuilder, listener);
   }
 
-  // biome-ignore format:
+  // biome-ignore format: Ignore
   const handler: ChordHandler<E> = {
     on(chords: ChordInput, listener: ChordMatchListener<E>): ChordHandler<E> {
       handleChord(event, chords, listener);

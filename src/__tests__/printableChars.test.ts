@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 
-import { isPrintableChar, isPrintableCharPressed } from "../printableChars.ts";
+import { isPrintableChar, isPrintableCharPressed } from "../printableChars.js";
 
 describe("within printableChars", () => {
   describe("the isPrintableChar function", () => {

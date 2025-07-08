@@ -44,15 +44,15 @@
     "test": "bun test"
   },
   "dependencies": {
-    "@laserware/arcade": "^3.13.3"
+    "@laserware/arcade": "^3.21.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.16",
-    "@biomejs/biome": "1.9.4",
-    "jsdom": "^26.0.0",
-    "tsup": "^8.3.5",
-    "typedoc": "^0.28.4",
-    "typescript": "^5.7.3"
+    "@types/bun": "^1.2.18",
+    "@biomejs/biome": "2.1.1",
+    "jsdom": "^26.1.0",
+    "tsup": "^8.5.0",
+    "typedoc": "^0.28.7",
+    "typescript": "^5.8.3"
   },
   "trustedDependencies": [
     "@biomejs/biome",

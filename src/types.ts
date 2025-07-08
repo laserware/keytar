@@ -33,7 +33,7 @@ export type Chord = Token | number;
 
 /**
  * Numbers that correspond to the key codes of the keyboard. Note that
- * these are not the same as the character codes and don't support
+ * these are different from the character codes and don't support
  * international keyboards.
  */
 export enum Key {

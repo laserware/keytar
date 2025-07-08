@@ -1,4 +1,4 @@
-import type { ChordedEvent } from "./types.ts";
+import type { ChordedEvent } from "./types.js";
 
 /**
  * Checks if a printable character key was pressed (excluding any modifiers).

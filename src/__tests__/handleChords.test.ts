@@ -1,8 +1,8 @@
 import { describe, expect, it, mock } from "bun:test";
 
-import { handleChords } from "../handleChords.ts";
-import { isPrintableCharPressed } from "../printableChars.ts";
-import { Key, Modifier } from "../types.ts";
+import { handleChords } from "../handleChords.js";
+import { isPrintableCharPressed } from "../printableChars.js";
+import { Key, Modifier } from "../types.js";
 
 describe("the handleChords function", () => {
   describe("when using the match and listener arguments", () => {

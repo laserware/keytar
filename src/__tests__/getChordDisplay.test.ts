@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 
-import { getChordDisplay } from "../getChordDisplay.ts";
-import { Key, Modifier, MouseButton, MouseEventButton } from "../types.ts";
+import { getChordDisplay } from "../getChordDisplay.js";
+import { Key, Modifier, MouseButton, MouseEventButton } from "../types.js";
 
 describe("the getChordDisplay function", () => {
   it("returns the display for a chord", () => {

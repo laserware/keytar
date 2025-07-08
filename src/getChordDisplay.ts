@@ -1,11 +1,11 @@
-import { getKeyForLookup, stripToken } from "./common.ts";
+import { getKeyForLookup, stripToken } from "./common.js";
 import {
   eventKeyByKeyEnumTable,
   keyEnumByEventKeyTable,
   modifierByModifierStatusTable,
   mouseButtonByMouseEventButtonTable,
   tokensDisplayTable,
-} from "./tables.ts";
+} from "./tables.js";
 import {
   type Chord,
   type ChordedEvent,
@@ -14,7 +14,7 @@ import {
   MouseButton,
   type MouseEventButton,
   type Token,
-} from "./types.ts";
+} from "./types.js";
 
 type TokenSet = Set<Token>;
 
