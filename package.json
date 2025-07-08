@@ -33,7 +33,7 @@
   "scripts": {
     "build": "tsup",
     "prepublishOnly": "bun run build",
-    "preversion": "bun run check:biome && bun run check:types",
+    "preversion": "bun run check:biome && bun run check:types && bun run build",
     "version": "git add -A src",
     "postversion": "git push && git push --tags",
     "check:biome": "biome check --write src",
