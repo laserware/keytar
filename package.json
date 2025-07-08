@@ -47,8 +47,9 @@
     "@laserware/arcade": "^3.21.2"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.18",
     "@biomejs/biome": "2.1.1",
+    "@happy-dom/global-registrator": "^18.0.1",
+    "@types/bun": "^1.2.18",
     "jsdom": "^26.1.0",
     "tsup": "^8.5.0",
     "typedoc": "^0.28.7",
