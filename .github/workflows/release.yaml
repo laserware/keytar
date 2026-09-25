@@ -3,28 +3,32 @@ on:
   push:
     tags:
       - v*
-env:
-  CI: true
+
+permissions:
+  contents: read
+  id-token: write # required for npm trusted publishing (OIDC)
 
 jobs:
   release:
-    name: Create Release
+    name: Publish to npm
     runs-on: ubuntu-latest
+    environment: npm
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
-      - name: Install Dependencies
-        run: bun install
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
 
-      - name: Build
-        run: bun run build
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest
 
-      - name: Publish to npm
-        uses: laserware/propellant@v1.0.2
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: bun install --frozen-lockfile
+
+      - name: Publish
+        run: npm publish
