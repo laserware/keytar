@@ -59,4 +59,3 @@ site
 yarn.lock
 pnpm-lock.yaml
 .pnp.*
-.idea
