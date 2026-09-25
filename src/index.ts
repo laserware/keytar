@@ -1,3 +1,4 @@
+export { KeytarError } from "./errors.js";
 export { getChordDisplay } from "./getChordDisplay.js";
 export {
   type ChordHandler,

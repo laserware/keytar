@@ -10,6 +10,12 @@ describe("the getChordDisplay function", () => {
     expect(result).toBe("⌥ + Shift + Left Click + C");
   });
 
+  it("returns the display for a chord with Command or Control", () => {
+    const result = getChordDisplay(Modifier.CmdOrCtrl | Key.LetterC);
+
+    expect(result).toBe("⌘ + C");
+  });
+
   it("returns the chord display for a keyboard event", () => {
     const event = new KeyboardEvent("keydown", {
       key: "ArrowDown",
