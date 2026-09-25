@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.1/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -19,7 +19,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "style": {
         "noUselessElse": "off",
         "noParameterAssign": "off",
@@ -43,7 +43,7 @@
       },
       "linter": {
         "rules": {
-          "recommended": true,
+          "preset": "recommended",
           "style": {
             "noNonNullAssertion": "off"
           }
