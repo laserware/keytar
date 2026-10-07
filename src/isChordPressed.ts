@@ -83,18 +83,18 @@ export function isChordPressed(
           continue;
         }
       }
-    }
+    } else {
+      if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
+        lookup = lookup & ~Modifier.Ctrl;
+      } else if (event.ctrlKey) {
+        continue;
+      }
 
-    if (hasTokenInChord(chord, Modifier.Ctrl) && event.ctrlKey) {
-      lookup = lookup & ~Modifier.Ctrl;
-    } else if (event.ctrlKey) {
-      continue;
-    }
-
-    if (hasTokenInChord(chord, Modifier.Cmd) && event.metaKey) {
-      lookup = lookup & ~Modifier.Cmd;
-    } else if (event.metaKey) {
-      continue;
+      if (hasTokenInChord(chord, Modifier.Cmd) && event.metaKey) {
+        lookup = lookup & ~Modifier.Cmd;
+      } else if (event.metaKey) {
+        continue;
+      }
     }
 
     if (hasTokenInChord(chord, Modifier.Alt) && event.altKey) {
