@@ -1,4 +1,4 @@
-import { describe, expect, it, mock } from "bun:test";
+import { describe, expect, it } from "bun:test";
 
 import { getChordDisplay } from "../getChordDisplay.js";
 import { isChordPressed } from "../isChordPressed.js";
@@ -191,26 +191,22 @@ describe("the isChordPressed function", () => {
   });
 
   describe("when checking for CmdOrCtrl", () => {
-    it("clears the Cmd key on macOS", () => {
+    it("throws an error when specifying CmdOrCtrl and Cmd", () => {
       // biome-ignore format: Ignore
       const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: true, shiftKey: false });
 
-      const result = isChordPressed(event, Modifier.CmdOrCtrl | Modifier.Ctrl);
-
-      expect(result).toBeTruthy();
+      expect(() => {
+        isChordPressed(event, Modifier.CmdOrCtrl | Modifier.Cmd);
+      }).toThrowError(/Cannot use CmdOrCtrl and Cmd/);
     });
 
-    it("clears the Ctrl key on Windows/Linux", () => {
-      mock.module("@laserware/arcade", () => ({
-        isPlatform: (platform: string) => platform !== "mac",
-      }));
-
+    it("throws an error when specifying CmdOrCtrl and Ctrl", () => {
       // biome-ignore format: Ignore
-      const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: false, shiftKey: false });
+      const event = new KeyboardEvent("keydown", { altKey: false, ctrlKey: true, metaKey: true, shiftKey: false });
 
-      const result = isChordPressed(event, Modifier.CmdOrCtrl);
-
-      expect(result).toBeTruthy();
+      expect(() => {
+        isChordPressed(event, Modifier.CmdOrCtrl | Modifier.Ctrl);
+      }).toThrowError(/Cannot use CmdOrCtrl and Ctrl/);
     });
   });
 

@@ -1,6 +1,7 @@
 import { isPlatform } from "@laserware/arcade";
 
 import { getKeyForLookup, hasTokenInChord, stripToken } from "./common.js";
+import { KeytarError } from "./errors.js";
 import { eventKeyByKeyEnumTable } from "./tables.js";
 import {
   type Chord,
@@ -24,6 +25,8 @@ export function isChordPressed(
   ...chords: Chord[]
 ): boolean {
   let matchCount = 0;
+
+  validateCmdOrCtrl(chords);
 
   for (const chord of chords) {
     let lookup = chord;
@@ -66,24 +69,16 @@ export function isChordPressed(
       continue;
     }
 
-    /*
-     * Since the `Modifier.CmdOrCtrl` flag is a bitwise OR of `Modifier.Cmd` and
-     * `Modifier.Ctrl`, we want to clear the flag for the modifier that _isn't_
-     * associated with that platform. So on macOS, we clear the `Modifier.Ctrl`
-     * flag since we're checking if `Modifier.Cmd` was pressed. On Linux/Windows,
-     * we clear `Modifier.Cmd` (or Windows key), since we're checking if
-     * `Modifier.Ctrl` was pressed.
-     */
     if (hasTokenInChord(chord, Modifier.CmdOrCtrl)) {
       if (isPlatform("mac")) {
         if (event.metaKey) {
-          lookup = lookup & ~Modifier.Ctrl;
+          lookup = lookup & ~Modifier.CmdOrCtrl;
         } else {
           continue;
         }
       } else {
         if (event.ctrlKey) {
-          lookup = lookup & ~Modifier.Cmd;
+          lookup = lookup & ~Modifier.CmdOrCtrl;
         } else {
           continue;
         }
@@ -123,4 +118,34 @@ export function isChordPressed(
   }
 
   return matchCount > 0;
+}
+
+function validateCmdOrCtrl(chords: Chord[]): void {
+  let cmdCount = 0;
+  let ctrlCount = 0;
+  let cmdOrCtrlCount = 0;
+
+  for (const chord of chords) {
+    if (hasTokenInChord(chord, Modifier.CmdOrCtrl)) {
+      cmdOrCtrlCount++;
+    }
+
+    if (hasTokenInChord(chord, Modifier.Ctrl)) {
+      ctrlCount++;
+    }
+
+    if (hasTokenInChord(chord, Modifier.Cmd)) {
+      cmdCount++;
+    }
+  }
+
+  if (cmdOrCtrlCount !== 0) {
+    if (ctrlCount !== 0) {
+      throw new KeytarError("Cannot use CmdOrCtrl and Ctrl in the same chord.");
+    }
+
+    if (cmdCount !== 0) {
+      throw new KeytarError("Cannot use CmdOrCtrl and Cmd in the same chord.");
+    }
+  }
 }
